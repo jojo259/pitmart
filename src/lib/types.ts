@@ -2,6 +2,8 @@ export interface Player {
 	uuid: string;
 	username: string;
 	usernameLower: string;
+	prestige: number;
+	level: number;
 	inventories: {
 		inventoryMain: Item[];
 		inventoryEnderChest: Item[];

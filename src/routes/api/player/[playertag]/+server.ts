@@ -4,6 +4,7 @@ import { collections } from "$lib/modules/database";
 import type { Player, Item } from "$lib/types";
 import * as mongoDb from "mongodb";
 import { hypixelApiKey } from '$env/static/private';
+import * as pitMaster from "$lib/assets/pitmaster.json";
 
 export async function GET(req) {
 	let tag = req.params.playertag;
@@ -45,10 +46,14 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		return null;
 	}
 
+	let prestigeAndLevel = calcPrestigeAndLevel(pitData.xp);
+
 	let player: Player = {
 		uuid: apiData.player.uuid,
 		username: apiData.player.displayname,
 		usernameLower: apiData.player.displayname.toLowerCase(),
+		prestige: prestigeAndLevel.prestige,
+		level: prestigeAndLevel.level,
 		inventories: {
 			inventoryMain: await parseInventory(pitData.inv_contents?.data),
 			inventoryEnderChest: await parseInventory(pitData.inv_enderchest?.data),
@@ -97,4 +102,25 @@ function parseNbt(buffer: Buffer): Promise<any> { // idk what type
 			}
 		});
 	});
+}
+
+function calcPrestigeAndLevel(xp: number): {prestige: number, level: number} {
+	let playerPrestige = 0;
+
+	for (let atPrestige = pitMaster.Pit.Prestiges.length - 1; atPrestige >= 0; atPrestige--) {
+		if (xp > pitMaster.Pit.Prestiges[atPrestige].SumXp) {
+			playerPrestige = atPrestige + 1;
+			break;
+		}
+	}
+
+	xp -= pitMaster.Pit.Prestiges[playerPrestige - 1].SumXp;
+
+	let playerLevel = 0;
+	while (xp > 0 && playerLevel < 120) {
+		playerLevel += 1;
+		xp -= pitMaster.Pit.Levels[Math.floor(playerLevel / 10)].Xp * pitMaster.Pit.Prestiges[playerPrestige].Multiplier;
+	}
+
+	return {prestige: playerPrestige, level: playerLevel};
 }
