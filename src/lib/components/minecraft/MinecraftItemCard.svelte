@@ -78,6 +78,7 @@
 		line-height: 18px;
 		pointer-events: none;
 		overflow: hidden;
+		text-align: left;
 	}
 
 	.visible {
