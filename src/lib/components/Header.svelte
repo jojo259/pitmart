@@ -1,4 +1,4 @@
-<h1>PitMart</h1>
+<h1>P<a href="/player/mcpqndq">i</a>tMart</h1>
 
 Search player
 
@@ -11,5 +11,9 @@ Search player
 <style>
 	h1 {
 		font-size: 64px;
+	}
+
+	a {
+		text-decoration: none;
 	}
 </style>
