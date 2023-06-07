@@ -1,0 +1,20 @@
+<script>
+	export let data;
+	import MinecraftInventory from "$lib/components/minecraft/MinecraftInventory.svelte";
+	import Window from "$lib/components/page/Window.svelte";
+</script>
+{#if data.success == true}
+	<Window>
+		<h1>{data.player.username}</h1>
+		<img src="https://crafatar.com/avatars/{data.player.uuid}" alt="player avatar" width=128px />
+	</Window>
+	<Window>
+		<MinecraftInventory width="9" height="3" contents={data.player.inventories.inventoryMain.slice(9)} />
+		<MinecraftInventory width="9" height="1" contents={data.player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+	</Window>
+{:else}
+	no player found
+{/if}
+
+<style>
+</style>

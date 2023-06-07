@@ -1,0 +1,15 @@
+* {
+	font-family: "Minecraft";
+	color: #111;
+}
+
+@font-face {
+	font-family: "Minecraft";
+	font-style: normal;
+	font-weight: 400;
+	src: url("/MinecraftRegular.otf") format("opentype");
+}
+
+body {
+	background-color: #333;
+}
