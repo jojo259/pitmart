@@ -4,6 +4,12 @@ export interface Player {
 	usernameLower: string;
 	inventories: {
 		inventoryMain: Item[];
+		inventoryEnderChest: Item[];
+		inventoryStash: Item[];
+		inventorySpireStash: Item[];
+		inventoryArmor: Item[];
+		inventoryMysticWellItem: Item[];
+		inventoryMysticWellPants: Item[];
 	};
 }
 

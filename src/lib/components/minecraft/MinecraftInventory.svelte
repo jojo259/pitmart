@@ -9,7 +9,7 @@
 <table>
 	{#each Array.from({ length: height }) as _, i}
 		{#each Array.from({ length: width }) as _, j}
-			{#if contents[i * width + j].id}
+			{#if contents && contents[i * width + j].id}
 				<MinecraftItemSlot item={contents[i * width + j]} />
 			{:else}
 				<MinecraftItemSlot />

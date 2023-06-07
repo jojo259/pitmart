@@ -48,7 +48,13 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		username: apiData.player.displayname,
 		usernameLower: apiData.player.displayname.toLowerCase(),
 		inventories: {
-			inventoryMain: await parseInventory(apiData.player.stats.Pit.profile.inv_contents.data)
+			inventoryMain: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_contents?.data),
+			inventoryEnderChest: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_enderchest?.data),
+			inventoryStash: await parseInventory(apiData.player?.stats?.Pit?.profile?.item_stash?.data),
+			inventorySpireStash: await parseInventory(apiData.player?.stats?.Pit?.profile?.spire_stash_inv?.data),
+			inventoryArmor: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_armor?.data),
+			inventoryMysticWellItem: await parseInventory(apiData.player?.stats?.Pit?.profile?.mystic_well_item?.data),
+			inventoryMysticWellPants: await parseInventory(apiData.player?.stats?.Pit?.profile?.mystic_well_pants?.data),
 		}
 	};
 
@@ -62,6 +68,9 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 }
 
 async function parseInventory(inv: any): Promise<Item[]> { // what type should inv be idk
+	if (inv == null) {
+		return [];
+	}
 	const parsed = await parseNbt(Buffer.from(inv, "base64"));
 	const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
 		obj = {
