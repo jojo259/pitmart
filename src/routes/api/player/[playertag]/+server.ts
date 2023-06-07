@@ -39,7 +39,9 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	let apiData: any = await fetch(`https://api.hypixel.net/player?key=${hypixelApiKey}${urlPart}`);
 	apiData = await apiData.json();
 
-	if (!apiData.player?.stats?.Pit?.profile) {
+	let pitData = apiData.player?.stats?.Pit?.profile;
+
+	if (!pitData) {
 		return null;
 	}
 
@@ -48,13 +50,13 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		username: apiData.player.displayname,
 		usernameLower: apiData.player.displayname.toLowerCase(),
 		inventories: {
-			inventoryMain: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_contents?.data),
-			inventoryEnderChest: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_enderchest?.data),
-			inventoryStash: await parseInventory(apiData.player?.stats?.Pit?.profile?.item_stash?.data),
-			inventorySpireStash: await parseInventory(apiData.player?.stats?.Pit?.profile?.spire_stash_inv?.data),
-			inventoryArmor: await parseInventory(apiData.player?.stats?.Pit?.profile?.inv_armor?.data),
-			inventoryMysticWellItem: await parseInventory(apiData.player?.stats?.Pit?.profile?.mystic_well_item?.data),
-			inventoryMysticWellPants: await parseInventory(apiData.player?.stats?.Pit?.profile?.mystic_well_pants?.data),
+			inventoryMain: await parseInventory(pitData.inv_contents?.data),
+			inventoryEnderChest: await parseInventory(pitData.inv_enderchest?.data),
+			inventoryStash: await parseInventory(pitData.item_stash?.data),
+			inventorySpireStash: await parseInventory(pitData.spire_stash_inv?.data),
+			inventoryArmor: await parseInventory(pitData.inv_armor?.data),
+			inventoryMysticWellItem: await parseInventory(pitData.mystic_well_item?.data),
+			inventoryMysticWellPants: await parseInventory(pitData.mystic_well_pants?.data),
 		}
 	};
 
