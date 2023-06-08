@@ -16,13 +16,13 @@
 </script>
 <CenteredDiv>
 	{#if data.success == true}
-		<div>
+		<div style:width=max-content style:margin=16px>
 			<Window title="Player">
 				<PlayerCard player={player} />
 			</Window>
 			<StatusCard player={player} />
 		</div>
-		<div style:width=580px>
+		<div style:width=600px style:margin=16px>
 			<WindowToggleable title="Inventory">
 				<div>
 					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />

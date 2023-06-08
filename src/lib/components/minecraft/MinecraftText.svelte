@@ -73,5 +73,6 @@
 <style>
 	div {
 		margin: 0px;
+		text-align: left;
 	}
 </style>
