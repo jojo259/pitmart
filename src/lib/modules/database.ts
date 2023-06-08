@@ -8,7 +8,7 @@ export const collections: {
 } = {};
 
 export async function connectToDatabase() {
-	const client: mongoDB.MongoClient = new mongoDB.MongoClient("mongodb://localhost:27017");
+	const client: mongoDB.MongoClient = new mongoDB.MongoClient(mongoConnectionString);
 	await client.connect();
 
 	const db: mongoDB.Db = client.db("pitmart");
