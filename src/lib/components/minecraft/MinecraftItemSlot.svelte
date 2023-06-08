@@ -27,8 +27,11 @@
 				imgSrc = leatherItems[item.id];
 			} else {
 				let itemData = minecraftItems.get(item.id);
+				if (item.id == 383) {
+					itemData = minecraftItems.get("383:96"); // mooshroom egg for first-aid egg
+				}
 				if (itemData) {
-					imgSrc = "data:image/png;base64, " + minecraftItems.get(item.id).icon;
+					imgSrc = "data:image/png;base64, " + itemData.icon;
 				}
 				else {
 					console.error(`no item data found for id ${item.id}`);
