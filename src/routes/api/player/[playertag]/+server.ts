@@ -82,6 +82,9 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		renown: pitData.renown | 0,
 		playtimeHours: Math.ceil(pitStats.playtime_minutes / 60) | 0,
 		hatColor: "#" + pitData.hat_color?.toString(16),
+		lastLogin: new Date(apiData.player.lastLogin || 0),
+		lastLogout: new Date(apiData.player.lastLogout || 0),
+		pitLastSave: new Date(pitData.last_save || 0),
 		inventories: {
 			inventoryMain: await parseInventory(pitData.inv_contents?.data),
 			inventoryEnderChest: await parseInventory(pitData.inv_enderchest?.data),

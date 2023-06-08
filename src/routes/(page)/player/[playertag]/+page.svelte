@@ -1,42 +1,51 @@
-<script>
-	export let data;
+<script lang="ts">
+	export let data: any;
 	import MinecraftInventory from "$lib/components/minecraft/MinecraftInventory.svelte";
 	import Window from "$lib/components/page/Window.svelte";
 	import WindowToggleable from "$lib/components/page/WindowToggleable.svelte";
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
 	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
+	import StatusCard from "$lib/components/page/StatusCard.svelte";
+	import type { Player } from "$lib/types";
+	
+	let player: Player;
+
+	$: {
+		player = data.player!;
+	}
 </script>
 <CenteredDiv>
 	{#if data.success == true}
 		<div>
 			<Window title="Player">
-				<PlayerCard player={data.player} />
+				<PlayerCard player={player} />
 			</Window>
+			<StatusCard player={player} />
 		</div>
 		<div style:width=580px>
 			<WindowToggleable title="Inventory">
 				<div>
-					<MinecraftInventory width=9 contents={data.player.inventories.inventoryMain.slice(9)} />
-					<MinecraftInventory width=9 contents={data.player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
+					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
 				</div>
 				<div>
-					<MinecraftInventory width=1 contents={data.player.inventories.inventoryArmor.reverse()} />
+					<MinecraftInventory width={1} contents={player.inventories.inventoryArmor.reverse()} />
 				</div>
 			</WindowToggleable>
 			<WindowToggleable title="Ender Chest & Mystic Well items">
 				<div>
-					<MinecraftInventory width=9 contents={data.player.inventories.inventoryEnderChest} />
+					<MinecraftInventory width={9} contents={player.inventories.inventoryEnderChest} />
 				</div>
 				<div>
-					<MinecraftInventory width=1 contents={data.player.inventories.inventoryMysticWellItem} />
-					<MinecraftInventory width=1 contents={data.player.inventories.inventoryMysticWellPants} />
+					<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellItem} />
+					<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellPants} />
 				</div>
 			</WindowToggleable>
 			<WindowToggleable title="Stash">
-				<MinecraftInventory width=9 contents={data.player.inventories.inventoryStash} />
+				<MinecraftInventory width={9} contents={player.inventories.inventoryStash} />
 			</WindowToggleable>
 			<WindowToggleable title="Spire Stash">
-				<MinecraftInventory width=9 contents={data.player.inventories.inventorySpireStash} />
+				<MinecraftInventory width={9} contents={player.inventories.inventorySpireStash} />
 			</WindowToggleable>
 		</div>
 	{:else}

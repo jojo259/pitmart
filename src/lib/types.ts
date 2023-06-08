@@ -14,6 +14,9 @@ export interface Player {
 	renown: number;
 	playtimeHours: number;
 	hatColor: string;
+	lastLogin: Date;
+	lastLogout: Date;
+	pitLastSave: Date;
 	inventories: {
 		inventoryMain: Item[];
 		inventoryEnderChest: Item[];
