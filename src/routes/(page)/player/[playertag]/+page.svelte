@@ -5,8 +5,8 @@
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
 	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
 </script>
-{#if data.success == true}
-	<CenteredDiv>
+<CenteredDiv>
+	{#if data.success == true}
 		<div>
 			<Window title="Player">
 				<PlayerCard player={data.player} />
@@ -21,10 +21,10 @@
 				<MinecraftInventory width=9 height={Math.ceil(data.player.inventories.inventoryEnderChest.length / 9)} contents={data.player.inventories.inventoryEnderChest} />
 			</Window>
 		</div>
-	</CenteredDiv>
-{:else}
-	no player found
-{/if}
+	{:else}
+		no player found / no pit data
+	{/if}
+</CenteredDiv>
 
 <style>
 	div {
