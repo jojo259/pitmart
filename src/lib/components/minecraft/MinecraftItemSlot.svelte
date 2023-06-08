@@ -7,6 +7,8 @@
 	import imgLeatherLeggings from "$lib/assets/items/300.png";
 	import imgLeatherBoots from "$lib/assets/items/301.png";
 
+	export let item = null;
+
 	let leatherItems = {
 		298: imgLeatherHelm,
 		299: imgLeatherChestplate,
@@ -14,7 +16,10 @@
 		301: imgLeatherBoots
 	};
 
-	export let item = null;
+	let itemIdOverrides = {
+		383: "383:96", // mooshroom egg for first-aid egg
+		351: "351:15", // bonemeal for sewer rubbish
+	}
 
 	$: itemColor = "#fff";
 	$: imgSrc = "";
@@ -27,8 +32,8 @@
 				imgSrc = leatherItems[item.id];
 			} else {
 				let itemData = minecraftItems.get(item.id);
-				if (item.id == 383) {
-					itemData = minecraftItems.get("383:96"); // mooshroom egg for first-aid egg
+				if (item.id in itemIdOverrides) {
+					itemData = minecraftItems.get(itemIdOverrides[item.id]); 
 				}
 				if (itemData) {
 					imgSrc = "data:image/png;base64, " + itemData.icon;
