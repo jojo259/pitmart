@@ -3,7 +3,7 @@
 </script>
 
 <div>
-	{title}
+	<span>{title}</span>
 	<slot />
 </div>
 
@@ -15,5 +15,9 @@
 		width: max-content;
 		padding: 8px;
 		margin: 8px;
+	}
+
+	span {
+		display: block;
 	}
 </style>
