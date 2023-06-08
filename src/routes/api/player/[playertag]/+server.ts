@@ -127,14 +127,16 @@ function parseNbt(buffer: Buffer): Promise<any> { // idk what type
 function calcPrestigeAndLevel(xp: number): {prestige: number, level: number} {
 	let playerPrestige = 0;
 
-	for (let atPrestige = pitMaster.Pit.Prestiges.length - 1; atPrestige >= 0; atPrestige--) {
+	for (let atPrestige = pitMaster.Pit.Prestiges.length - 1; atPrestige > 0; atPrestige--) {
 		if (xp > pitMaster.Pit.Prestiges[atPrestige].SumXp) {
 			playerPrestige = atPrestige + 1;
 			break;
 		}
 	}
 
-	xp -= pitMaster.Pit.Prestiges[playerPrestige - 1].SumXp;
+	if (playerPrestige > 0) {
+		xp -= pitMaster.Pit.Prestiges[playerPrestige - 1].SumXp;
+	}
 
 	let playerLevel = 0;
 	while (xp > 0 && playerLevel < 120) {
