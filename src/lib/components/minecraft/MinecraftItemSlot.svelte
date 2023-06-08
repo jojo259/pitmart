@@ -26,7 +26,13 @@
 				// leather item
 				imgSrc = leatherItems[item.id];
 			} else {
-				imgSrc = "data:image/png;base64, " + minecraftItems.get(item.id).icon;
+				let itemData = minecraftItems.get(item.id);
+				if (itemData) {
+					imgSrc = "data:image/png;base64, " + minecraftItems.get(item.id).icon;
+				}
+				else {
+					console.error(`no item data found for id ${item.id}`);
+				}
 			}
 			itemColor = "#" + item.color;
 		}
