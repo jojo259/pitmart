@@ -9,6 +9,7 @@
 
 <style>
 	div {
+		display: block;
 		border: 2px solid #202020;
 		background-color: #2e2e2e;
 		width: max-content;

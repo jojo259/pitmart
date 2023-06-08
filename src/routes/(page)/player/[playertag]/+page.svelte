@@ -3,13 +3,13 @@
 	import MinecraftInventory from "$lib/components/minecraft/MinecraftInventory.svelte";
 	import Window from "$lib/components/page/Window.svelte";
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
+	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
 </script>
 {#if data.success == true}
 	<CenteredDiv>
 		<div>
 			<Window title="Player">
-				<h1>{data.player.username}</h1>
-				<img src="https://crafatar.com/avatars/{data.player.uuid}" alt="player avatar" width=128px />
+				<PlayerCard player={data.player} />
 			</Window>
 		</div>
 		<div>

@@ -16,21 +16,32 @@
 
 	export let item = null;
 
-	let itemColor = null;
-	let imgSrc = null;
-	if (item) {
-		try {
+	$: itemColor = "#fff";
+	$: imgSrc = "";
+	$: {
+		imgSrc = "";
+		itemColor = "#fff";
+		if (item) {
 			if (item.id >= 298 && item.id <= 301) {
 				// leather item
 				imgSrc = leatherItems[item.id];
 			} else {
 				imgSrc = "data:image/png;base64, " + minecraftItems.get(item.id).icon;
 			}
-		} catch (err) {}
-		try {
 			itemColor = "#" + item.color;
-		} catch (err) {
-			// don't care
+		}
+		if (itemColor == "#null") {
+			itemColor = "#333";
+		}
+	}
+
+	$: itemCountStr = "";
+	$: {
+		itemCountStr = "";
+		if (item) {
+			if (item.count > 1) {
+				itemCountStr = item.count;
+			}
 		}
 	}
 
@@ -49,9 +60,7 @@
 	{#if item != null}
 		<img src={imgSrc} alt="item" draggable="false" style:background-color={itemColor} />
 		<MinecraftItemCard {item} show={showItemCard} />
-		{#if item.count > 1}
-			<span>{item.count}</span>
-		{/if}
+		<span>{itemCountStr}</span>
 	{/if}
 </div>
 
