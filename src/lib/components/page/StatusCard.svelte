@@ -7,7 +7,7 @@
 	export let player: Player;
 
 	$: playerOnline = false;
-	$: latestOnHypixel = 0;
+	$: latestOnHypixel = new Date(0);
 
 	$: {
 		playerOnline = player.lastLogin > player.lastLogout;
