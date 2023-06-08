@@ -21,9 +21,9 @@ export async function GET(req) {
 async function apiGetPlayer(tag: string): Promise<Player | null> {
 	if (collections.players) {
 		if (tag.length <= 16) {
-			let doc = await collections.players.findOne({ usernameLower: tag.toLowerCase() });
+			let doc = await collections.players.findOne({ "player.usernameLower": tag.toLowerCase() });
 			if (doc) {
-				tag = doc.uuid.toString();
+				tag = doc.player.uuid.toString();
 			}
 		}
 	}
@@ -94,7 +94,7 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	};
 
 	if (collections.players) {
-		collections.players.replaceOne({ uuid: player.uuid }, player as mongoDb.Document, {
+		collections.players.updateOne({ "player.uuid": player.uuid }, {$set: {player: player}}, {
 			upsert: true
 		});
 	}
