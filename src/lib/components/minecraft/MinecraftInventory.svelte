@@ -1,21 +1,24 @@
 <script>
 	import MinecraftItemSlot from "./MinecraftItemSlot.svelte";
 
-	export let width;
-	export let height;
+	export let width = 9;
 	export let contents;
 </script>
 
 <table>
-	{#each Array.from({ length: height }) as _, i}
-		{#each Array.from({ length: width }) as _, j}
-			{#if contents && contents[i * width + j].id}
-				<MinecraftItemSlot item={contents[i * width + j]} />
+	{#each Array.from({ length: Math.max(contents.length, width) }) as _, i}
+		{#if i < contents.length}
+			{#if contents && contents[i].id}
+				<MinecraftItemSlot item={contents[i]} />
 			{:else}
 				<MinecraftItemSlot />
 			{/if}
-		{/each}
-		<br />
+		{:else}
+			<MinecraftItemSlot />
+		{/if}
+		{#if (i + 1) % width == 0}
+			<br>
+		{/if}
 	{/each}
 </table>
 
