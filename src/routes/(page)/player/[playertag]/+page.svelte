@@ -57,5 +57,6 @@
 	div {
 		display: inline-block;
 		vertical-align: top;
+		flex-shrink: 0;
 	}
 </style>
