@@ -2,6 +2,7 @@
 	import MinecraftText from "$lib/components/minecraft/MinecraftText.svelte";
 	import type { Player } from "$lib/types";
 	import * as pitMaster from "$lib/assets/pitmaster.json";
+	import ProgressBar from "./ProgressBar.svelte";
 
 	export let player: Player;
 
@@ -45,6 +46,12 @@
 				<MinecraftText text={"§7" + line} />
 			</p>
 		{/each}
+		<div style:display="block" style:margin="0px">
+			<ProgressBar percentage={player.prestigeXpReqProportion * 100} barColor="#50caca" />
+		</div>
+		<div style:display="block" style:margin="0px">
+			<ProgressBar percentage={player.prestigeGoldReqProportion * 100} barColor="#d9a334" />
+		</div>
 	</div>
 </div>
 

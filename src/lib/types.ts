@@ -5,6 +5,10 @@ export interface Player {
 	supporter: boolean,
 	prestige: number;
 	level: number;
+	prestigeXpLeft: number;
+	prestigeXpReqProportion: number;
+	prestigeGoldLeft: number;
+	prestigeGoldReqProportion: number;
 	rank: Rank;
 	gold: number;
 	renown: number;

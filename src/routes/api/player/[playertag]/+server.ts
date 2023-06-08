@@ -62,6 +62,10 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		}
 	}
 
+	let prestigeCurrentGold = (pitData[`cash_during_prestige_${prestigeAndLevel.prestige}`]) | 0;
+	let prestigeGoldLeft = pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq - prestigeCurrentGold;
+	let prestigeGoldReqProportion = +(prestigeCurrentGold / pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq).toFixed(4);
+
 	let player: Player = {
 		uuid: apiData.player.uuid,
 		username: apiData.player.displayname,
@@ -69,6 +73,10 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		supporter: supporter,
 		prestige: prestigeAndLevel.prestige | 0,
 		level: prestigeAndLevel.level | 0,
+		prestigeXpLeft: prestigeAndLevel.prestigeXpLeft,
+		prestigeXpReqProportion: prestigeAndLevel.currentPrestigeProportion,
+		prestigeGoldLeft: prestigeGoldLeft,
+		prestigeGoldReqProportion: prestigeGoldReqProportion,
 		rank: rank,
 		gold: Math.floor(pitData.cash) | 0,
 		renown: pitData.renown | 0,
@@ -124,7 +132,7 @@ function parseNbt(buffer: Buffer): Promise<any> { // idk what type
 	});
 }
 
-function calcPrestigeAndLevel(xp: number): {prestige: number, level: number} {
+function calcPrestigeAndLevel(xp: number): {prestige: number, level: number, prestigeXpLeft: number, currentPrestigeProportion: number} {
 	let playerPrestige = 0;
 
 	for (let atPrestige = pitMaster.Pit.Prestiges.length - 1; atPrestige > 0; atPrestige--) {
@@ -134,9 +142,15 @@ function calcPrestigeAndLevel(xp: number): {prestige: number, level: number} {
 		}
 	}
 
+	let previousPrestigeSumXp = 0;
 	if (playerPrestige > 0) {
-		xp -= pitMaster.Pit.Prestiges[playerPrestige - 1].SumXp;
+		previousPrestigeSumXp = pitMaster.Pit.Prestiges[playerPrestige - 1].SumXp;
 	}
+
+	let prestigeXpLeft = pitMaster.Pit.Prestiges[playerPrestige].SumXp - xp;
+	let currentPrestigeProportion = +(1 - prestigeXpLeft / (pitMaster.Pit.Prestiges[playerPrestige].SumXp - previousPrestigeSumXp)).toFixed(4);
+
+	xp -= previousPrestigeSumXp;
 
 	let playerLevel = 0;
 	while (xp > 0 && playerLevel < 120) {
@@ -144,5 +158,5 @@ function calcPrestigeAndLevel(xp: number): {prestige: number, level: number} {
 		xp -= pitMaster.Pit.Levels[Math.floor(playerLevel / 10)].Xp * pitMaster.Pit.Prestiges[playerPrestige].Multiplier;
 	}
 
-	return {prestige: playerPrestige, level: playerLevel};
+	return {prestige: playerPrestige, level: playerLevel, prestigeXpLeft: prestigeXpLeft, currentPrestigeProportion: currentPrestigeProportion};
 }
