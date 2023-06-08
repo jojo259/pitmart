@@ -28,7 +28,7 @@
 
 	$: cardLines = [
 		rankPrefix + " " + player.username,
-		"Level: " + prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + "-" + levelColor + player.level + prestigeColor + "]" + supporterStr,
+		"Level: " + prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + player.level + prestigeColor + "]" + supporterStr,
 		"Gold: §6" + player.gold.toLocaleString() + "g",
 		"Renown: " + "§3" + player.renown,
 		"Playtime: §f" + player.playtimeHours + " hours",
