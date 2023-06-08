@@ -15,6 +15,7 @@
 	<div>
 		<div>
 			<h1>P<a href="/player/mcpqndq">i</a>tMart</h1>
+			<h2>BETA!</h2>
 		</div>
 		<div>
 			<span>Search player:</span>
@@ -31,7 +32,28 @@
 <style>
 	h1 {
 		font-size: 64px;
-		margin: 8px;
+		margin: 64px;
+	}
+
+	h2 {
+		font-size:48px;
+		color:#ffc400;
+		position:absolute;
+		top:20px;
+		left: 53%;
+		transform:rotate(30deg);
+		transition: all .5s ease;
+	}
+
+	h2:hover {
+		font-size: 96px;
+		top:-16px;
+		left: 52%;
+		color: #f00;
+	}
+
+	h1, h2 {
+		user-select: none;
 	}
 
 	form {
