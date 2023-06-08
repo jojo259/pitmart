@@ -41,6 +41,8 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	apiData = await apiData.json();
 
 	let pitData = apiData.player?.stats?.Pit?.profile;
+	let pitStats = apiData.player?.stats?.Pit?.pit_stats_ptl;
+	let pitPackages = apiData.player?.stats?.Pit?.packages;
 
 	if (!pitData) {
 		return null;
@@ -48,12 +50,30 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 
 	let prestigeAndLevel = calcPrestigeAndLevel(pitData.xp);
 
+	let rank = apiData.player.newPackageRank || apiData.player.packageRank || 'NON'; // credit pitpanda
+	if (apiData.player.monthlyPackageRank == 'SUPERSTAR') rank = 'SUPERSTAR';
+	const staff = apiData.player.rank;
+	if (staff && staff != 'NORMAL') rank = staff;
+
+	let supporter = false;
+	if (pitPackages) {
+		if (pitPackages.includes("supporter")) {
+			supporter = true;
+		}
+	}
+
 	let player: Player = {
 		uuid: apiData.player.uuid,
 		username: apiData.player.displayname,
 		usernameLower: apiData.player.displayname.toLowerCase(),
+		supporter: supporter,
 		prestige: prestigeAndLevel.prestige,
 		level: prestigeAndLevel.level,
+		rank: rank,
+		gold: Math.floor(pitData.cash),
+		renown: pitData.renown,
+		playtimeHours: Math.ceil(pitStats.playtime_minutes / 60),
+		hatColor: "#" + pitData.hat_color?.toString(16),
 		inventories: {
 			inventoryMain: await parseInventory(pitData.inv_contents?.data),
 			inventoryEnderChest: await parseInventory(pitData.inv_enderchest?.data),
