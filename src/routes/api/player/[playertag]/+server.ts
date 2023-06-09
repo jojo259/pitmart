@@ -113,6 +113,7 @@ async function parseInventory(inv: any): Promise<Item[]> { // what type should i
 	const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
 		obj = {
 			id: obj.id?.value ?? null,
+			meta: obj.Damage?.value ?? null,
 			count: obj.Count?.value ?? null,
 			name: obj.tag?.value?.display?.value?.Name?.value ?? null,
 			lore: obj.tag?.value?.display?.value?.Lore?.value?.value ?? null,

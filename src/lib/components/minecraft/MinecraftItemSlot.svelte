@@ -16,11 +16,6 @@
 		301: imgLeatherBoots
 	};
 
-	let itemIdOverrides = {
-		383: "383:96", // mooshroom egg for first-aid egg
-		351: "351:15", // bonemeal for sewer rubbish
-	}
-
 	$: itemColor = "#fff";
 	$: imgSrc = "";
 	$: {
@@ -31,10 +26,11 @@
 				// leather item
 				imgSrc = leatherItems[item.id];
 			} else {
-				let itemData = minecraftItems.get(item.id);
-				if (item.id in itemIdOverrides) {
-					itemData = minecraftItems.get(itemIdOverrides[item.id]); 
+				let itemIdStr = item.id.toString();
+				if (item.meta) {
+					itemIdStr += ":" + item.meta;
 				}
+				let itemData = minecraftItems.get(itemIdStr);
 				if (itemData) {
 					imgSrc = "data:image/png;base64, " + itemData.icon;
 				}

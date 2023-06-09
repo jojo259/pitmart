@@ -30,6 +30,7 @@ export interface Player {
 
 export interface Item {
 	id: number;
+	meta: number;
 	count: number;
 	name: string;
 	lore: string[];
