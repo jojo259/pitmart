@@ -37,7 +37,7 @@
 
 <div style:display="block">
 	<div>
-		<img src="https://crafatar.com/avatars/{player.uuid}" alt="player avatar" width=128px style:outline="2px solid {player.hatColor}" />
+		<img src="https://crafatar.com/avatars/{player.uuid}" alt="player avatar" width=128px>
 	</div>
 	<div>
 		{#each cardLines as line, i}
