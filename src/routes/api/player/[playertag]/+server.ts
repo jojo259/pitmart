@@ -66,6 +66,49 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	let prestigeGoldLeft = pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq - prestigeCurrentGold;
 	let prestigeGoldReqProportion = +(prestigeCurrentGold / pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq).toFixed(4);
 
+	let passivesList = Object.keys(pitMaster.Pit.Upgrades);
+	let playerPassives: { [key: string]: number } = {};
+	passivesList.forEach((passiveKey) => {
+		playerPassives[passiveKey] = 0;
+	});
+	for (let i = 999; i > 0; i--) {
+		let unlocksString = `unlocks_${i}`;
+		if (unlocksString in pitData) {
+			pitData[unlocksString].forEach((unlock: Unlock) => {
+				let currentTier = 0;
+				if (unlock.key in playerPassives) {
+					currentTier = playerPassives[unlock.key];
+					if (unlock.tier + 1 > currentTier) {
+						playerPassives[unlock.key] = unlock.tier + 1; // tier starts at 0 for level 1
+					}
+				}
+			});
+			break;
+		}
+	}
+
+	let playerPerks: string[] = [];
+	for (let i = 0; i < 999; i++) {
+		let perkString = `selected_perk_${i}`;
+		if (perkString in pitData) {
+			playerPerks.push(pitData[perkString]);
+		}
+		else {
+			break;
+		}
+	}
+
+	let playerKillstreaks: string[] = [];
+	for (let i = 0; i < 999; i++) {
+		let killstreakString = `selected_killstreak_${i}`;
+		if (killstreakString in pitData) {
+			playerKillstreaks.push(pitData[killstreakString]);
+		}
+		else {
+			break;
+		}
+	}
+
 	let plusColor: string | null = apiData.player.rankPlusColor;
 	let rankColor: string | null = apiData.player.monthlyRankColor;
 	let playerPrefix = pitMaster.Extra.RankPrefixes[rank]//.replace("@", pitMaster.Extra.ColorCodes[plus] || "§c");
@@ -102,6 +145,11 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		lastLogin: new Date(apiData.player.lastLogin || 0),
 		lastLogout: new Date(apiData.player.lastLogout || 0),
 		pitLastSave: new Date(pitData.last_save || 0),
+		upgrades: {
+			passives: playerPassives,
+			perks: playerPerks,
+			killstreaks: playerKillstreaks,
+		},
 		inventories: {
 			inventoryMain: await parseInventory(pitData.inv_contents?.data),
 			inventoryEnderChest: await parseInventory(pitData.inv_enderchest?.data),
@@ -130,7 +178,7 @@ async function parseInventory(inv: any): Promise<Item[]> { // what type should i
 	const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
 		obj = {
 			id: obj.id?.value ?? null,
-			meta: obj.Damage?.value ?? null,
+			dataVal: obj.Damage?.value ?? null,
 			count: obj.Count?.value ?? null,
 			name: obj.tag?.value?.display?.value?.Name?.value ?? null,
 			lore: obj.tag?.value?.display?.value?.Lore?.value?.value ?? null,
@@ -180,4 +228,10 @@ function calcPrestigeAndLevel(xp: number): {prestige: number, level: number, pre
 	}
 
 	return {prestige: playerPrestige, level: playerLevel, prestigeXpLeft: prestigeXpLeft, currentPrestigeProportion: currentPrestigeProportion};
+}
+
+interface Unlock {
+	key: string,
+	tier: number,
+	acquireDate: number
 }

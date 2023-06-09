@@ -7,6 +7,7 @@
 	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
 	import StatusCard from "$lib/components/page/StatusCard.svelte";
 	import type { Player } from "$lib/types";
+	import UpgradesCard from "$lib/components/page/UpgradesCard.svelte";
 	
 	let player: Player;
 
@@ -21,6 +22,7 @@
 				<PlayerCard player={player} />
 			</Window>
 			<StatusCard player={player} />
+			<UpgradesCard player={player} />
 		</div>
 		<div style:width=600px style:margin=16px>
 			<WindowToggleable title="Inventory">

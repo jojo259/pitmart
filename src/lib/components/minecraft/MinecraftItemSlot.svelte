@@ -27,8 +27,8 @@
 				imgSrc = leatherItems[item.id];
 			} else {
 				let itemIdStr = item.id.toString();
-				if (item.meta) {
-					itemIdStr += ":" + item.meta;
+				if (item.dataVal) {
+					itemIdStr += ":" + item.dataVal;
 				}
 				let itemData = minecraftItems.get(itemIdStr);
 				if (itemData) {

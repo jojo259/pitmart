@@ -18,6 +18,11 @@ export interface Player {
 	lastLogin: Date;
 	lastLogout: Date;
 	pitLastSave: Date;
+	upgrades: {
+		passives: { [key: string]: number };
+		perks: string[],
+		killstreaks: string[],
+	},
 	inventories: {
 		inventoryMain: Item[];
 		inventoryEnderChest: Item[];
@@ -31,11 +36,11 @@ export interface Player {
 
 export interface Item {
 	id: number;
-	meta: number;
+	dataVal: number | null;
 	count: number;
-	name: string;
-	lore: string[];
-	color: string;
+	name: string | null;
+	lore: string[] | null;
+	color: string | null;
 }
 
 export type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";
