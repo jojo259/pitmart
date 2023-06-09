@@ -13,7 +13,7 @@
 
 <CenteredDiv>
 	<Window title="">
-		<div on:click={toggleWindow} style:cursor=pointer>
+		<div on:click={toggleWindow} on:keypress={toggleWindow} style:cursor=pointer>
 			<span>{title}{visible ? "" : " (click to expand)"}</span>
 		</div>
 		<div class="{visible ? "visible" : "hidden"}">
