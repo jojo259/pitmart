@@ -46,10 +46,10 @@
 				<MinecraftText text={"§7" + line} />
 			</p>
 		{/each}
-		<div style:display="block" style:margin="0px">
+		<div style:display="block" style:margin-top="6px" style:margin-left="0px">
 			<ProgressBar percentage={player.prestigeXpReqProportion * 100} barColor="#50caca" />
 		</div>
-		<div style:display="block" style:margin="0px">
+		<div style:display="block" style:margin-top="6px" style:margin-left="0px">
 			<ProgressBar percentage={player.prestigeGoldReqProportion * 100} barColor="#d9a334" />
 		</div>
 	</div>
