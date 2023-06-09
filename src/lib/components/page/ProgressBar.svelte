@@ -4,7 +4,7 @@
 
 	let mult = 1.4;
 
-	percentage = Math.min(percentage, 100);
+	$: percentage = Math.min(percentage, 100);
 </script>
 
 <div title="{percentage}%" style:background-color="#333" style:width="{mult * 100}px" style:margin="0px">
