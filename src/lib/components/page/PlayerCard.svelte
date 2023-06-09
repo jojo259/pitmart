@@ -22,13 +22,12 @@
 	$: prestigeColor = pitMaster.Pit.Prestiges[player.prestige].ColorCode;
 	$: levelColor = pitMaster.Pit.Levels[Math.floor(player.level / 10)].ColorCode;
 
-	$: rankPrefix = pitMaster.Extra.RankPrefixes[player.rank];
 	$: supporterStr = player.supporter ? " §e✫" : "";
 
 	$: playtimeHours = player.playtimeHours;
 
 	$: cardLines = [
-		rankPrefix + " " + player.username,
+		player.prefix + " " + player.username,
 		"Level: " + prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + player.level + prestigeColor + "]" + supporterStr,
 		"Gold: §6" + player.gold.toLocaleString() + "g",
 		"Renown: " + "§3" + player.renown,

@@ -1,7 +1,7 @@
 import { json } from "@sveltejs/kit";
 import * as nbt from "prismarine-nbt";
 import { collections } from "$lib/modules/database";
-import type { Player, Item } from "$lib/types";
+import type { Player, Item, Rank } from "$lib/types";
 import * as mongoDb from "mongodb";
 import { hypixelApiKey } from '$env/static/private';
 import * as pitMaster from "$lib/assets/pitmaster.json";
@@ -50,7 +50,7 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 
 	let prestigeAndLevel = calcPrestigeAndLevel(pitData.xp);
 
-	let rank = apiData.player.newPackageRank || apiData.player.packageRank || 'NON'; // credit pitpanda
+	let rank: Rank = apiData.player.newPackageRank || apiData.player.packageRank || 'NON'; // credit pitpanda
 	if (apiData.player.monthlyPackageRank == 'SUPERSTAR') rank = 'SUPERSTAR';
 	const staff = apiData.player.rank;
 	if (staff && staff != 'NORMAL') rank = staff;
@@ -66,10 +66,27 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	let prestigeGoldLeft = pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq - prestigeCurrentGold;
 	let prestigeGoldReqProportion = +(prestigeCurrentGold / pitMaster.Pit.Prestiges[prestigeAndLevel.prestige].GoldReq).toFixed(4);
 
+	let plusColor: string | null = apiData.player.rankPlusColor;
+	let rankColor: string | null = apiData.player.monthlyRankColor;
+	let playerPrefix = pitMaster.Extra.RankPrefixes[rank]//.replace("@", pitMaster.Extra.ColorCodes[plus] || "§c");
+	if (plusColor && (plusColor as keyof typeof pitMaster.Extra.ColorCodes) in pitMaster.Extra.ColorCodes) {
+		playerPrefix = playerPrefix.replace("$", pitMaster.Extra.ColorCodes[plusColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
+	}
+	else {
+		playerPrefix = playerPrefix.replace("$", "");
+	}
+	if (rankColor && (rankColor as keyof typeof pitMaster.Extra.ColorCodes) in pitMaster.Extra.ColorCodes) {
+		playerPrefix = playerPrefix.replace("@", pitMaster.Extra.ColorCodes[rankColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
+	}
+	else {
+		playerPrefix = playerPrefix.replace("@", "");
+	}
+
 	let player: Player = {
 		uuid: apiData.player.uuid,
 		username: apiData.player.displayname,
 		usernameLower: apiData.player.displayname.toLowerCase(),
+		prefix: playerPrefix,
 		supporter: supporter,
 		prestige: prestigeAndLevel.prestige | 0,
 		level: prestigeAndLevel.level | 0,

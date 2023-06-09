@@ -2,6 +2,7 @@ export interface Player {
 	uuid: string;
 	username: string;
 	usernameLower: string;
+	prefix: string;
 	supporter: boolean,
 	prestige: number;
 	level: number;
@@ -37,4 +38,4 @@ export interface Item {
 	color: string;
 }
 
-type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";
+export type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";
