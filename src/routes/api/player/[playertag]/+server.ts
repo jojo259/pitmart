@@ -170,34 +170,38 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	return player;
 }
 
-async function parseInventory(inv: any): Promise<Item[]> { // what type should inv be idk
+async function parseInventory(inv: any): Promise<Item[]> {
 	if (inv == null) {
 		return [];
 	}
-	const parsed = await parseNbt(Buffer.from(inv, "base64"));
-	const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
-		obj = {
-			id: obj.id?.value ?? null,
-			dataVal: obj.Damage?.value ?? null,
-			count: obj.Count?.value ?? null,
-			name: obj.tag?.value?.display?.value?.Name?.value ?? null,
-			lore: obj.tag?.value?.display?.value?.Lore?.value?.value ?? null,
-			color: obj.tag?.value?.display?.value?.color?.value?.toString(16) ?? null
-		} as Item;
-		return obj;
-	});
-	return items;
-}
-
-function parseNbt(buffer: Buffer): Promise<any> { // idk what type
-	return new Promise((resolve, reject) => {
-		nbt.parse(buffer, (err, data) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(data);
-			}
-		});
+	return new Promise(async (resolve, reject) => {
+		try {
+			const buffer = Buffer.from(inv, "base64");
+			nbt.parse(buffer, (err, parsed: any) => {
+				if (err) {
+					reject(err);
+				} else {
+					if (parsed.value.i === undefined) {
+						resolve([]);
+					} else {
+						const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
+							obj = {
+								id: obj.id?.value ?? null,
+								dataVal: obj.Damage?.value ?? null,
+								count: obj.Count?.value ?? null,
+								name: obj.tag?.value?.display?.value?.Name?.value ?? null,
+								lore: obj.tag?.value?.display?.value?.Lore?.value?.value ?? null,
+								color: obj.tag?.value?.display?.value?.color?.value?.toString(16) ?? null
+							} as Item;
+							return obj;
+						});
+						resolve(items);
+					}
+				}
+			});
+		} catch (error) {
+			reject(error);
+		}
 	});
 }
 
