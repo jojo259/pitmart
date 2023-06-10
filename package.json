@@ -5,6 +5,7 @@
 	"scripts": {
 		"dev": "npm-run-all --parallel devnots check:watch",
 		"devnots": "vite dev",
+		"discordonly": "nodemon src/discordbot/bot.ts --forcediscord",
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -14,15 +15,19 @@
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-node": "^1.2.4",
 		"@sveltejs/kit": "^1.5.0",
+		"nodemon": "^2.0.22",
 		"npm-run-all": "^4.1.5",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
+		"ts-node": "^10.9.1",
 		"tslib": "^2.4.1",
-		"typescript": "^5.0.0",
+		"typescript": "^5.1.3",
 		"vite": "^4.3.0"
 	},
 	"type": "module",
 	"dependencies": {
+		"discord.js": "^14.11.0",
+		"dotenv": "^16.1.4",
 		"minecraft-items": "^0.4.3",
 		"mongodb": "^5.6.0",
 		"prismarine-nbt": "^2.2.1"
