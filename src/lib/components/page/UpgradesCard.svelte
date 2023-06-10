@@ -15,14 +15,14 @@
 		player.upgrades.perks.forEach((perkKey: string) => {
 			const perkData = perksData[perkKey];
 			const itemData = perkData.Item;
-			let perkItem: Item = {
+			let perkItem = {
 				id: perkData.Item.Id,
 				dataVal: typeof itemData.Meta === 'number' ? itemData.Meta : null,
 				count: 1,
 				name: perkData.Name,
 				lore: perkData.Description,
 				color: typeof itemData.Meta === 'string' ? itemData.Meta : null,
-			}
+			} as Item
 			perksFakeInventory.push(perkItem);
 		});
 	}
@@ -35,14 +35,14 @@
 			if (killstreakKey) {
 				const killstreakData = killstreaksData[killstreakKey];
 				const itemData = killstreakData.Item;
-				let killstreakItem: Item = {
+				let killstreakItem = {
 					id: killstreakData.Item.Id,
 					dataVal: typeof itemData.Meta === 'number' ? itemData.Meta : null,
 					count: 1,
 					name: killstreakData.Name,
 					lore: killstreakData.Description,
 					color: typeof itemData.Meta === 'string' ? itemData.Meta : null,
-				}
+				} as Item;
 				killstreaksFakeInventory.push(killstreakItem);
 			}
 			else {
@@ -59,14 +59,14 @@
 			const passiveData = passivesData[playerPassiveKey];
 			const itemData = passiveData.Item;
 
-			let passiveItem: Item = {
+			let passiveItem = {
 				id: itemData.Id,
 				dataVal: typeof itemData.Meta === 'number' ? itemData.Meta : null,
 				count: playerPassiveLevel,
 				name: passiveData.Name ? passiveData.Name : null,
 				lore: passiveData.Description ? passiveData.Description : null,
 				color: typeof itemData.Meta === 'string' ? itemData.Meta : null,
-			};
+			} as Item;
 
 			if (playerPassiveLevel > 0) {
 				passiveItem.name = `${playerPassiveLevel > 1 ? '§9' : '§0'}${passiveItem.name} ${romanize(playerPassiveLevel)}`;
