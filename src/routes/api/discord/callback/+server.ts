@@ -49,6 +49,6 @@ export async function GET({url, cookies}) {
 
 	return new Response("redirect", {
 		status: 302,
-		headers: { Location: "/" }
+		headers: { Location: "/reload" }
 	});
 }
