@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let data: any;
-	import Header from "$lib/components/Header.svelte";
+	import Header from "$lib/components/global/Header.svelte";
 	import "../../global.css";
 
 	$: user = data.user;
