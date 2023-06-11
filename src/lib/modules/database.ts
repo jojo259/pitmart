@@ -5,6 +5,7 @@ connectToDatabase();
 
 export const collections: {
 	players?: mongoDB.Collection;
+	users?: mongoDB.Collection;
 } = {};
 
 export async function connectToDatabase() {
@@ -14,6 +15,7 @@ export async function connectToDatabase() {
 	const db: mongoDB.Db = client.db("pitmart");
 
 	collections.players = db.collection("players");
+	collections.users = db.collection("users");
 
 	console.log("connected to db");
 }

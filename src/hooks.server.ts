@@ -1,5 +1,6 @@
 import { startDiscordBot } from "./discordbot/bot";
 import { runDiscordBot } from '$env/static/private';
+import { collections } from "$lib/modules/database";
 
 export const handle = (async ({ event, resolve }) => {
 	if (runDiscordBot == "true") {
@@ -9,7 +10,7 @@ export const handle = (async ({ event, resolve }) => {
 
 	const cookies = parseCookie(event.request.headers.get("cookie") || "");
 
-	let user = false;
+	let user: any = false;
 
 	if (cookies.discord_access_token) {
 		console.log("getting user discord data by access token");
@@ -20,6 +21,12 @@ export const handle = (async ({ event, resolve }) => {
 		if (response.id) {
 			user = { ...response };
 		}
+	}
+
+	if (collections.users && user.id) {
+		collections.users.updateOne({ "discordid": user.id }, {$set: {"discordid": user.id}}, {
+			upsert: true
+		});
 	}
 
 	const response = await resolve({ ...event, locals: { user } });
