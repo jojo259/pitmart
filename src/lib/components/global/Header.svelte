@@ -1,5 +1,6 @@
 <script lang="ts">
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
+	import NavBar from "./NavBar.svelte";
 
 	export let user: any;
 
@@ -11,30 +12,9 @@
 		event.preventDefault();
 		goto(`/player/${tag}`);
 	}
-
-	let logoutVisible = false;
-
-	function onMouseEnter() {
-		logoutVisible = true;
-	}
-
-	function onMouseLeave() {
-		logoutVisible = false;
-	}
 </script>
 
-<div style:text-align="right" style:vertical-align="middle" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
-	{#if user.username}
-		{#if logoutVisible}
-			<a href="/api/discord/logout">Log out</a>
-		{:else}
-			<span style:vertical-align="middle">Logged in as {user.username}</span>
-		{/if}
-		<img style:vertical-align="middle" width=32px src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png">
-	{:else}
-		<a href="/api/discord/auth">Log in with Discord</a>
-	{/if}
-</div>
+<NavBar user={user} />
 
 <CenteredDiv>
 	<div>
@@ -55,10 +35,6 @@
 </CenteredDiv>
 
 <style>
-	header {
-
-	}
-
 	h1 {
 		font-size: 64px;
 		margin: 64px;
@@ -68,7 +44,7 @@
 		font-size:48px;
 		color:#ffc400;
 		position:absolute;
-		top:40px;
+		top:68px;
 		left: 53%;
 		transform:rotate(30deg);
 		transition: all .5s ease;
@@ -76,8 +52,8 @@
 
 	h2:hover {
 		font-size: 96px;
-		top:-24px;
-		left: 48%;
+		top:16px;
+		left: 49%;
 		color: #f00;
 	}
 

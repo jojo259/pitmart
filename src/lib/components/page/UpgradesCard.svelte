@@ -158,13 +158,13 @@
 		<span>Perks</span>
 	</CenteredDiv>
 	<CenteredDiv>
-		<MinecraftInventory width={Math.max(3, perksFakeInventory.length)} contents={perksFakeInventory}/>
+		<MinecraftInventory width={perksFakeInventory.length} contents={perksFakeInventory}/>
 	</CenteredDiv>
 	<CenteredDiv>
 		<span>Killstreaks</span>
 	</CenteredDiv>
 	<CenteredDiv>
-		<MinecraftInventory width={Math.max(3, killstreaksFakeInventory.length)} contents={killstreaksFakeInventory}/>
+		<MinecraftInventory width={killstreaksFakeInventory.length} contents={killstreaksFakeInventory}/>
 	</CenteredDiv>
 	<CenteredDiv>
 		<span>Passives</span>
