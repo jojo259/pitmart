@@ -1,7 +1,7 @@
 import { discordClientId, discordClientSecret, hostDomain, jwtSecret } from "$env/static/private";
 import { collections } from "$lib/modules/database";
 import type { User } from "$lib/types";
-import * as jwt from "jsonwebtoken";
+import jsonwebtoken from 'jsonwebtoken';
 
 export async function GET({url, cookies}) {
 
@@ -53,7 +53,7 @@ export async function GET({url, cookies}) {
 		if (collections.users) {
 			await collections.users.updateOne({ "discordId": user.discordId }, {$set: user}, {upsert: true});
 		
-			let jwtToken = jwt.sign({
+			let jwtToken = jsonwebtoken.sign({
 				exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7),
 				discordId: identifyResp.id,
 			}, jwtSecret);

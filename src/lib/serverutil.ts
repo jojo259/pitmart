@@ -2,7 +2,7 @@ import { collections } from "$lib/modules/database";
 import type { Player } from "$lib/types";
 import { hypixelApiKey, jwtSecret } from '$env/static/private';
 import type { User } from "$lib/types";
-import * as jwt from "jsonwebtoken";
+import jsonwebtoken from "jsonwebtoken";
 
 export async function getSavedUuid(tag: string): Promise<string | null> {
 	if (tag.length == 32 || tag.length == 36) {
@@ -37,7 +37,7 @@ export async function callPlayerApi(tag: string): Promise<any> {
 
 export async function resolveUser(jwtStr: string): Promise<User | null> {
 	
-	let decoded: any = jwt.verify(jwtStr, jwtSecret);
+	let decoded: any = jsonwebtoken.verify(jwtStr, jwtSecret);
 
 	if (!decoded.discordId) {
 		console.error("jwt token missing discord id");
