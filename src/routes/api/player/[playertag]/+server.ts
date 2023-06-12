@@ -3,8 +3,8 @@ import * as nbt from "prismarine-nbt";
 import { collections } from "$lib/modules/database";
 import type { Player, Item, Rank } from "$lib/types";
 import * as mongoDb from "mongodb";
-import { hypixelApiKey } from '$env/static/private';
 import * as pitMaster from "$lib/assets/pitmaster.json";
+import { callPlayerApi } from "$lib/serverutil";
 
 export async function GET(req) {
 	let tag = req.params.playertag;
@@ -19,26 +19,7 @@ export async function GET(req) {
 }
 
 async function apiGetPlayer(tag: string): Promise<Player | null> {
-	if (collections.players) {
-		if (tag.length <= 16) {
-			let doc = await collections.players.findOne({ "player.usernameLower": tag.toLowerCase() });
-			if (doc) {
-				tag = doc.player.uuid.toString();
-			}
-		}
-	}
-
-	let urlPart = `&uuid=${tag}`;
-	if (tag.length < 32) {
-		urlPart = `&name=${tag}`;
-		console.log(`getting player by name: ${tag}`);
-	}
-	else {
-		console.log(`getting player by uuid: ${tag}`);
-	}
-
-	let apiData: any = await fetch(`https://api.hypixel.net/player?key=${hypixelApiKey}${urlPart}`);
-	apiData = await apiData.json();
+	let apiData = await callPlayerApi(tag);
 
 	let pitData = apiData.player?.stats?.Pit?.profile;
 	let pitStats = apiData.player?.stats?.Pit?.pit_stats_ptl;

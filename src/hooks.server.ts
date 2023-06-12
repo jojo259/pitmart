@@ -1,8 +1,7 @@
 import { startDiscordBot } from "./discordbot/bot";
-import { runDiscordBot, jwtSecret } from '$env/static/private';
-import { collections } from "$lib/modules/database";
+import { runDiscordBot } from '$env/static/private';
 import type { User } from "$lib/types";
-import * as jwt from "jsonwebtoken";
+import { resolveUser } from "$lib/serverutil";
 
 export const handle = (async ({ event, resolve }) => {
 	if (runDiscordBot == "true") {
@@ -10,9 +9,16 @@ export const handle = (async ({ event, resolve }) => {
 	}
 	const requestStartTime = Date.now();
 
-	const cookies = parseCookie(event.request.headers.get("cookie") || "");
+	let user: (User | null) = null;
 
-	let user: (User | null) = await resolveUser(cookies);
+	const cookies = parseCookies(event.request.headers.get("cookie") || "");
+
+	if (cookies.jwt) {
+		user = await resolveUser(cookies.jwt);
+	}
+	else {
+		console.log("no cookies found");
+	}
 
 	const response = await resolve({ ...event, locals: { user } });
 
@@ -26,40 +32,7 @@ export const handle = (async ({ event, resolve }) => {
 	return response;
 });
 
-async function resolveUser(cookies: any): Promise<User | null> {
-	if (!cookies.jwt) {
-		console.log("no cookies found");
-		return null;
-	}
-	let decoded: any = jwt.verify(cookies.jwt, jwtSecret);
-
-	if (!decoded.discordId) {
-		console.error("jwt token missing discord id");
-		return null;
-	}
-
-	if (!collections.users) {
-		console.error("user collection not defined");
-		return null;
-	}
-
-	let userDoc: any = await collections.users.findOne({discordId: decoded.discordId});
-
-	if (!userDoc) {
-		return null;
-	}
-
-	delete userDoc._id;
-
-	console.log("user doc found");
-
-	let user: (User | null) = null;
-	user = userDoc as User;
-
-	return user;
-}
-
-const parseCookie = (str: string): Record<string, string> => {
+const parseCookies = (str: string): Record<string, string> => {
 	if (str.length == 0) {
 		return {};
 	}

@@ -20,13 +20,30 @@
 			goto("/");
 		}
 	});
+
+	let tag = "";
+
+	async function handleSubmit(event: Event) {
+		event.preventDefault();
+		const verifyReq = await fetch("/api/user/verifyhypixel", {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json'
+			},
+			body: JSON.stringify({tag: tag})
+		});
+		const verifyResp = await verifyReq.json();
+		if (verifyResp.success) {
+			location.reload();
+		}
+	}
 </script>
 
 {#if user}
 	<CenteredDiv>
 		<div>
-			<h1>{user.username}</h1>
-			<h2>Verified UUIDs</h2>
+			<h1>{user.username} - {user.displayName}</h1>
+			<h2>Verified UUIDs:</h2>
 			{#if user.verifiedHypixelUuids}
 				{#each user.verifiedHypixelUuids as uuid}
 					<div>
@@ -34,6 +51,13 @@
 					</div>
 				{/each}
 			{/if}
+			<h2>Verify Hypixel account:</h2>
+			<form on:submit={handleSubmit}>
+				<label>
+					<input bind:value={tag} type="text" id="tag" name="tag" placeholder="Username/UUID" />
+				</label>
+				<button type="submit">Verify</button>
+			</form>
 		</div>
 	</CenteredDiv>
 {/if}
@@ -41,5 +65,9 @@
 <style>
 	div {
 		display: block;
+	}
+
+	h1 {
+		font-size: 48px;
 	}
 </style>
