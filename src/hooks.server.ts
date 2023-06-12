@@ -1,7 +1,8 @@
 import { startDiscordBot } from "./discordbot/bot";
-import { runDiscordBot } from '$env/static/private';
+import { runDiscordBot, jwtSecret } from '$env/static/private';
 import { collections } from "$lib/modules/database";
 import type { User } from "$lib/types";
+import * as jwt from "jsonwebtoken";
 
 export const handle = (async ({ event, resolve }) => {
 	if (runDiscordBot == "true") {
@@ -11,48 +12,7 @@ export const handle = (async ({ event, resolve }) => {
 
 	const cookies = parseCookie(event.request.headers.get("cookie") || "");
 
-	let user: (User | null) = null;
-
-	if (cookies.discord_access_token) {
-		console.log("getting user discord data by access token");
-		let userDiscordData: any;
-		const request = await fetch(`https://discord.com/api/users/@me`, {
-			headers: {'Authorization': `Bearer ${cookies.discord_access_token}`}
-		});
-		const response = await request.json();
-		if (response.id) {
-			userDiscordData = { ...response };
-
-			let toUpdate: User = {
-				discordId: response.id,
-				username: response.username,
-				displayName: response.global_name,
-				avatarId: response.avatar,
-			}
-
-			if (collections.users) {
-				await collections.users.updateOne({ "discordId": response.id }, {$set: toUpdate}, {upsert: true});
-			}
-
-			if (collections.users) {
-				let userDoc: any = await collections.users.findOne({discordId: userDiscordData.id});
-				if (userDoc) {
-					delete userDoc._id;
-				}
-				user = userDoc as User;
-				console.log("user doc found");
-			}
-			else {
-				console.log("user collection does not exist");
-			}
-		}
-		else {
-			console.log(`discord oauth failure: ${response}`);
-		}
-	}
-	else {
-		console.log("user logged out");
-	}
+	let user: (User | null) = await resolveUser(cookies);
 
 	const response = await resolve({ ...event, locals: { user } });
 
@@ -65,6 +25,39 @@ export const handle = (async ({ event, resolve }) => {
 	);
 	return response;
 });
+
+async function resolveUser(cookies: any): Promise<User | null> {
+	if (!cookies.jwt) {
+		console.log("no cookies found");
+		return null;
+	}
+	let decoded: any = jwt.verify(cookies.jwt, jwtSecret);
+
+	if (!decoded.discordId) {
+		console.error("jwt token missing discord id");
+		return null;
+	}
+
+	if (!collections.users) {
+		console.error("user collection not defined");
+		return null;
+	}
+
+	let userDoc: any = await collections.users.findOne({discordId: decoded.discordId});
+
+	if (!userDoc) {
+		return null;
+	}
+
+	delete userDoc._id;
+
+	console.log("user doc found");
+
+	let user: (User | null) = null;
+	user = userDoc as User;
+
+	return user;
+}
 
 const parseCookie = (str: string): Record<string, string> => {
 	if (str.length == 0) {

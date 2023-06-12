@@ -47,6 +47,8 @@ export interface User {
 	discordId: string;
 	username: string;
 	displayName: string;
+	discordAccessToken: string;
+	discordRefreshToken: string;
 	avatarId: string;
 	verifiedHypixelUuids?: string[];
 }

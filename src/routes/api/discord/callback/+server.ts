@@ -1,6 +1,7 @@
-import { discordClientId, discordClientSecret, hostDomain } from "$env/static/private";
+import { discordClientId, discordClientSecret, hostDomain, jwtSecret } from "$env/static/private";
 import { collections } from "$lib/modules/database";
 import type { User } from "$lib/types";
+import * as jwt from "jsonwebtoken";
 
 export async function GET({url, cookies}) {
 
@@ -45,10 +46,30 @@ export async function GET({url, cookies}) {
 			username: identifyResp.username,
 			displayName: identifyResp.global_name,
 			avatarId: identifyResp.avatar,
+			discordAccessToken: response.access_token,
+			discordRefreshToken: response.refresh_token,
 		}
 
 		if (collections.users) {
 			await collections.users.updateOne({ "discordId": user.discordId }, {$set: user}, {upsert: true});
+		
+			let jwtToken = jwt.sign({
+				exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7),
+				discordId: identifyResp.id,
+			}, jwtSecret);
+
+			cookies.set("jwt", jwtToken, {
+				path: "/",
+				httpOnly: true,
+				secure: true,
+				sameSite: "strict",
+				maxAge: 60 * 60 * 24 * 7
+			});
+
+			return new Response("redirect", {
+				status: 302,
+				headers: { Location: "/reload" }
+			});
 		}
 		else {
 			console.log("user collection does not exist");
@@ -58,23 +79,7 @@ export async function GET({url, cookies}) {
 		console.log(`discord oauth failure: ${identifyResp}`);
 	}
 
-	cookies.set("discord_access_token", response.access_token, {
-		path: "/",
-		httpOnly: true,
-		secure: true,
-		sameSite: "strict",
-		maxAge: 60 * 60 * 24 * 7 // because i did not figure out refreshing yet...
-	});
-	cookies.set("discord_refresh_token", response.refresh_token, {
-		path: "/",
-		httpOnly: true,
-		secure: true,
-		sameSite: "strict",
-		maxAge: 60 * 60 * 24 * 7
-	});
-
-	return new Response("redirect", {
-		status: 302,
-		headers: { Location: "/reload" }
+	return new Response(null, {
+		status: 500
 	});
 }

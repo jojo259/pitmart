@@ -1,14 +1,9 @@
 export async function GET({url, cookies}) {
   console.log('redirect to / with cleared cookies');
 
-	cookies.set("discord_refresh_token", "deleted", {
+	cookies.set("jwt", "null", {
 		path: "/",
-		maxAge: 1
-	});
-
-	cookies.set("discord_access_token", "deleted", {
-		path: "/",
-		maxAge: 1
+		maxAge: 0
 	});
 
 	return new Response("redirect", {
