@@ -1,4 +1,6 @@
 import { discordClientId, discordClientSecret, hostDomain } from "$env/static/private";
+import { collections } from "$lib/modules/database";
+import type { User } from "$lib/types";
 
 export async function GET({url, cookies}) {
 
@@ -30,6 +32,30 @@ export async function GET({url, cookies}) {
 		return new Response(null, {
 			status: 500
 		});
+	}
+
+	let identifyReq = await fetch(`https://discord.com/api/users/@me`, {
+		headers: {'Authorization': `Bearer ${response.access_token}`}
+	});
+	let identifyResp = await identifyReq.json();
+
+	if (identifyResp.id) {
+		let user: User = {
+			discordId: identifyResp.id,
+			username: identifyResp.username,
+			displayName: identifyResp.global_name,
+			avatarId: identifyResp.avatar,
+		}
+
+		if (collections.users) {
+			await collections.users.updateOne({ "discordId": user.discordId }, {$set: user}, {upsert: true});
+		}
+		else {
+			console.log("user collection does not exist");
+		}
+	}
+	else {
+		console.log(`discord oauth failure: ${identifyResp}`);
 	}
 
 	cookies.set("discord_access_token", response.access_token, {

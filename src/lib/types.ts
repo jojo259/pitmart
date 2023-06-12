@@ -43,4 +43,12 @@ export interface Item {
 	color: string | null;
 }
 
+export interface User {
+	discordId: string;
+	username: string;
+	displayName: string;
+	avatarId: string;
+	verifiedHypixelUuids?: string[];
+}
+
 export type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";

@@ -18,7 +18,7 @@
 			<a class="left-side-elem" href="/">PitMart</a>
 		</div>
 		<div class="right-side">
-			{#if user.username}
+			{#if user}
 				<div class="right-side-elem">
 					{#if logoutVisible}
 						<div>
@@ -28,7 +28,9 @@
 						<span>Logged in as {user.username}</span>
 					{/if}
 				</div>
-				<img class="right-side-elem" width=44px src="https://cdn.discordapp.com/avatars/{user.id}/{user.avatar}.png">
+				<a class="right-side-elem" style:margin-top="8px" href="/user">
+					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png">
+				</a>
 			{:else}
 				<a class="right-side-elem" href="/api/discord/auth">Log in with Discord</a>
 			{/if}
