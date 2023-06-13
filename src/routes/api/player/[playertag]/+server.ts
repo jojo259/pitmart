@@ -143,7 +143,7 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	};
 
 	if (collections.players) {
-		collections.players.updateOne({ "player.uuid": player.uuid }, {$set: {player: player}}, {
+		collections.players.updateOne({ "player.uuid": player.uuid }, {$set: player}, {
 			upsert: true
 		});
 	}

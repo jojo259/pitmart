@@ -10,7 +10,7 @@ export async function getSavedUuid(tag: string): Promise<string | null> {
 	}
 	if (collections.players) {
 		if (tag.length <= 16) {
-			let playerDoc: any = await collections.players.findOne({ "player.usernameLower": tag.toLowerCase() });
+			let playerDoc: any = await collections.players.findOne({ "usernameLower": tag.toLowerCase() });
 			if (playerDoc) {
 				let player = playerDoc.player as Player;
 				return player.uuid.toString();
