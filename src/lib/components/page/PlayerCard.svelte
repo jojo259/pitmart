@@ -5,8 +5,11 @@
 	import ProgressBar from "./ProgressBar.svelte";
 	import { romanize } from "$lib/util";
 	import Window from "$lib/components/page/Window.svelte";
+	import ConditionalLink from "$lib/components/page/ConditionalLink.svelte";
 
 	export let uuid: string;
+	export let links = false;
+
 	let prestigeColor: string;
 	let levelColor: string;
 	let supporterStr: string;
@@ -37,11 +40,12 @@
 	})(uuid);
 </script>
 
-<Window title="">
-	{#await playerPromise}
-		{uuid}
-	{:then player}
-		{#if player}
+<ConditionalLink enabled={links} href="/player/{uuid}">
+	<Window title="">
+		{#await playerPromise}
+			{uuid}
+		{:then player}
+			{#if player}
 				<div style:display="block">
 					<div>
 						<img src="https://crafatar.com/avatars/{player.uuid}" alt="player avatar" width=128px>
@@ -60,11 +64,14 @@
 						</div>
 					</div>
 				</div>
-		{/if}
-	{:catch error}
-		error {uuid}
-	{/await}
-</Window>
+			{:else}
+				nodata {uuid}
+			{/if}
+		{:catch error}
+			error {uuid}
+		{/await}
+	</Window>
+</ConditionalLink>
 
 <style>
 	div {

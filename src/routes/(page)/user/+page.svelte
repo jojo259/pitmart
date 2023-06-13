@@ -47,7 +47,7 @@
 			{#if user.verifiedHypixelUuids}
 				{#each user.verifiedHypixelUuids as uuid}
 					<div style:display="inline-block" style:margin="16px">
-						<PlayerCard uuid={uuid} />
+						<PlayerCard uuid={uuid} links={true} />
 					</div>
 				{/each}
 			{/if}
