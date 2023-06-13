@@ -6,19 +6,28 @@
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
 	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
 	import StatusCard from "$lib/components/page/StatusCard.svelte";
-	import type { Player } from "$lib/types";
+	import type { Player, User } from "$lib/types";
 	import UpgradesCard from "$lib/components/page/UpgradesCard.svelte";
 	
 	let player: Player;
+	let user: User;
 
 	$: {
 		player = data.player!;
+		user = data.user!;
 	}
 </script>
 <CenteredDiv>
 	{#if data.success == true}
 		<div style:width=max-content style:margin=16px>
 			<PlayerCard uuid={player.uuid} />
+			{#if user}
+				{#if user.verifiedHypixelUuids.includes(player.uuid)}
+					<Window title="">
+						<span style:color="#ff0">Verified to YOU</span>
+					</Window>
+				{/if}
+			{/if}
 			<StatusCard player={player} />
 			<UpgradesCard player={player} />
 		</div>

@@ -46,6 +46,7 @@ export async function GET({url, cookies}) {
 			username: identifyResp.username,
 			displayName: identifyResp.global_name,
 			avatarId: identifyResp.avatar,
+			verifiedHypixelUuids: [],
 			discordAccessToken: response.access_token,
 			discordRefreshToken: response.refresh_token,
 		}

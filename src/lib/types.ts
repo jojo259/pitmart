@@ -50,7 +50,7 @@ export interface User {
 	discordAccessToken: string;
 	discordRefreshToken: string;
 	avatarId: string;
-	verifiedHypixelUuids?: string[];
+	verifiedHypixelUuids: string[];
 }
 
 export type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";
