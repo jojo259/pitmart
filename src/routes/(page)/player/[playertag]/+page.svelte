@@ -18,9 +18,7 @@
 <CenteredDiv>
 	{#if data.success == true}
 		<div style:width=max-content style:margin=16px>
-			<Window title="Player">
-				<PlayerCard player={player} />
-			</Window>
+			<PlayerCard uuid={player.uuid} />
 			<StatusCard player={player} />
 			<UpgradesCard player={player} />
 		</div>
