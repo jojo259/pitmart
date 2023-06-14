@@ -40,7 +40,17 @@ export interface Item {
 	count: number;
 	name: string | null;
 	lore: string[] | null;
+	nonce: number | null;
+	tier: number | null;
+	lives: number | null;
+	maxLives: number | null;
 	color: string | null;
+	enchants: Enchant[] | null;
+}
+
+export interface Enchant {
+	key: string;
+	level: number;
 }
 
 export interface User {

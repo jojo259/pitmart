@@ -1,7 +1,7 @@
 import { json } from "@sveltejs/kit";
 import * as nbt from "prismarine-nbt";
 import { collections } from "$lib/modules/database";
-import type { Player, Item, Rank } from "$lib/types";
+import type { Player, Item, Rank, Enchant } from "$lib/types";
 import * as mongoDb from "mongodb";
 import * as pitMaster from "$lib/assets/pitmaster.json";
 import { callPlayerApi } from "$lib/serverutil";
@@ -166,13 +166,30 @@ async function parseInventory(inv: any): Promise<Item[]> {
 						resolve([]);
 					} else {
 						const items: Item[] = parsed.value.i.value.value.map((obj: any) => {
+							let itemEnchants = null;
+							let foundEnchants = obj.tag?.value?.ExtraAttributes?.value?.CustomEnchants?.value?.value ?? null;
+							if (foundEnchants) {
+								itemEnchants = [];
+								foundEnchants.forEach((enchantData: any) => {
+									let enchant = {
+										key: enchantData.Key?.value,
+										level: enchantData.Level?.value,
+									} as Enchant;
+									itemEnchants.push(enchant);
+								});
+							}
 							obj = {
 								id: obj.id?.value ?? null,
 								dataVal: obj.Damage?.value ?? null,
 								count: obj.Count?.value ?? null,
 								name: obj.tag?.value?.display?.value?.Name?.value ?? null,
 								lore: obj.tag?.value?.display?.value?.Lore?.value?.value ?? null,
-								color: obj.tag?.value?.display?.value?.color?.value?.toString(16) ?? null
+								nonce: obj.tag?.value?.ExtraAttributes?.value?.Nonce?.value ?? null,
+								tier: obj.tag?.value?.ExtraAttributes?.value?.UpgradeTier?.value ?? null,
+								lives: obj.tag?.value?.ExtraAttributes?.value?.Lives?.value ?? null,
+								maxLives: obj.tag?.value?.ExtraAttributes?.value?.MaxLives?.value ?? null,
+								color: obj.tag?.value?.display?.value?.color?.value?.toString(16) ?? null,
+								enchants: itemEnchants
 							} as Item;
 							return obj;
 						});
