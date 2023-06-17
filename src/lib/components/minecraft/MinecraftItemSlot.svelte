@@ -68,7 +68,7 @@
 
 <div on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 	{#if item != null}
-		<img src={imgSrc} alt="item" draggable="false" style:background-color={itemColor} />
+		<img src={imgSrc} alt="item" draggable="false" style:background-color={itemColor} style:filter={item.count < 1 ? "saturate(0)" : ""} />
 		<MinecraftItemCard {item} show={showItemCard} />
 		<span>{itemCountStr}</span>
 	{/if}
