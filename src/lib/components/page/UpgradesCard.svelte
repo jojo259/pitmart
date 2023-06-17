@@ -116,6 +116,61 @@
 		}
 	}
 
+	let renownUpgradesData: RenownUpgradesData = pitMaster.Pit.RenownUpgrades;
+	let renownUpgradesFakeInventory: Item[] = [];
+	$: {
+		renownUpgradesFakeInventory = [];
+		for (let [playerRenownUpgradesKey, playerRenownUpgradesLevel] of Object.entries(player.upgrades.renown)) {
+			const renownUpgradeData = renownUpgradesData[playerRenownUpgradesKey];
+			if (renownUpgradeData) {
+				const itemData = renownUpgradeData.Item;
+				if (itemData) {
+					let renownUpgradeItem = {
+						id: itemData.Id,
+						dataVal: typeof itemData.Meta === 'number' ? itemData.Meta : null,
+						count: playerRenownUpgradesLevel,
+						name: renownUpgradeData.Name ? renownUpgradeData.Name : null,
+						lore: renownUpgradeData.Description ? renownUpgradeData.Description : null,
+						color: typeof itemData.Meta === 'string' ? itemData.Meta : null,
+					} as Item;
+
+					if (renownUpgradeItem.lore) {
+						if (renownUpgradeData.Extra?.Formatting == "Reveal" && renownUpgradeData.Extra.IgnoreIndex) {
+							renownUpgradeItem.lore = renownUpgradeItem.lore.slice(0, playerRenownUpgradesLevel + renownUpgradeData.Extra.IgnoreIndex);
+						}
+						else if (renownUpgradeData.Extra?.Formatting == "Seperated") {
+							renownUpgradeItem.lore = renownUpgradeItem.lore[playerRenownUpgradesLevel - 1];
+						}
+						else if (renownUpgradeData.Extra?.Formatting == "ApiReference") {
+							// this is used for 2 renown perks:
+							// fancy hat and assistant to the streaker
+							// for fancy hat it just writes the player's hat color in the lore
+							// for assistant to the streaker it displays promotion in the lore if it is unlocked
+							// but promotion was removed so it doesn't matter
+							// and that was never actually implemented in pitpanda anyway
+							// so i will simply:
+							if (playerRenownUpgradesKey == "fancy_hat") {
+								renownUpgradeItem.lore = renownUpgradeItem.lore.map(line => typeof line == "string" ? line.replace('$', player.hatColor.replace("#", "")) : "error");
+								renownUpgradeItem.color = player.hatColor.replace("#", "");
+							}
+						}
+						else {
+							renownUpgradeItem.lore = renownUpgradeItem.lore.map(line => typeof line == "string" ? line.replace('$', Math.max(playerRenownUpgradesLevel, 1).toString()) : "error");
+						}
+					}
+
+					renownUpgradesFakeInventory.push(renownUpgradeItem);
+				}
+				else {
+					console.error(`no renownUpgrades item data for ${playerRenownUpgradesKey}`);
+				}
+			}
+			else {
+				console.error(`no renownUpgrade data for ${playerRenownUpgradesKey}`);
+			}
+		}
+	}
+
 	interface PassivesData {
 		[key: string]: {
 			Name: string;
@@ -151,6 +206,24 @@
 			};
 		};
 	}
+
+	interface RenownUpgradesData {
+		[key: string]: {
+			Name: string;
+			Extra?: {
+				Formatting?: string;
+				IgnoreIndex?: number;
+			}
+			Description: string[] | string[][];
+			Levels?: string[];
+			Costs: number[];
+			Item: {
+				Id: number;
+				Meta: number | string;
+			};
+			Category: string;
+		};
+	}
 </script>
 
 <Window title="Upgrades">
@@ -171,6 +244,12 @@
 	</CenteredDiv>
 	<CenteredDiv>
 		<MinecraftInventory width={7} contents={passivesFakeInventory}/>
+	</CenteredDiv>
+	<CenteredDiv>
+		<span>Renown</span>
+	</CenteredDiv>
+	<CenteredDiv>
+		<MinecraftInventory width={7} contents={renownUpgradesFakeInventory}/>
 	</CenteredDiv>
 </Window>
 

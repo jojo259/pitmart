@@ -68,6 +68,23 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 		}
 	}
 
+	let renownUpgradesList = Object.keys(pitMaster.Pit.RenownUpgrades);
+	let playerRenownUpgrades: { [key: string]: number } = {};
+	renownUpgradesList.forEach((renownUpgradeKey) => {
+		playerRenownUpgrades[renownUpgradeKey] = 0;
+	});
+	if ("renown_unlocks" in pitData) {
+		pitData.renown_unlocks.forEach((unlock: Unlock) => {
+			let currentTier = 0;
+			if (unlock.key in playerRenownUpgrades) {
+				currentTier = playerRenownUpgrades[unlock.key];
+				if (unlock.tier + 1 > currentTier) {
+					playerRenownUpgrades[unlock.key] = unlock.tier + 1; // tier starts at 0 for level 1
+				}
+			}
+		});
+	}
+
 	let playerPerks: string[] = [];
 	for (let i = 0; i < 999; i++) {
 		let perkString = `selected_perk_${i}`;
@@ -130,6 +147,7 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 			passives: playerPassives,
 			perks: playerPerks,
 			killstreaks: playerKillstreaks,
+			renown: playerRenownUpgrades,
 		},
 		inventories: {
 			inventoryMain: await parseInventory(pitData.inv_contents?.data),

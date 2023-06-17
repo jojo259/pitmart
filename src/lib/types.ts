@@ -22,6 +22,7 @@ export interface Player {
 		passives: { [key: string]: number };
 		perks: string[],
 		killstreaks: string[],
+		renown: { [key: string]: number };
 	},
 	inventories: {
 		inventoryMain: Item[];
