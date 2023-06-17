@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { afterUpdate, onMount } from 'svelte';
+	import { encode } from 'html-entities';
 
 	export let text: string;
 
@@ -13,7 +14,7 @@
 		}
 		textHtml = "<span style='color:#FFF'>";
 		let nextCharSetsColor = false;
-		text.split("").forEach((char: string) => {
+		encode(text).split("").forEach((char: string) => {
 			if (nextCharSetsColor) {
 				nextCharSetsColor = false;
 				if (char in minecraftColorCodes) {
