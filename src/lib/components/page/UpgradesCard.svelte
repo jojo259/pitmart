@@ -139,7 +139,7 @@
 							renownUpgradeItem.lore = renownUpgradeItem.lore.slice(0, playerRenownUpgradesLevel + renownUpgradeData.Extra.IgnoreIndex);
 						}
 						else if (renownUpgradeData.Extra?.Formatting == "Seperated") {
-							renownUpgradeItem.lore = renownUpgradeItem.lore[playerRenownUpgradesLevel - 1];
+							renownUpgradeItem.lore = (renownUpgradeData.Description[Math.max(0, playerRenownUpgradesLevel - 1)] as string[]);
 						}
 						else if (renownUpgradeData.Extra?.Formatting == "ApiReference") {
 							// this is used for 2 renown perks:
