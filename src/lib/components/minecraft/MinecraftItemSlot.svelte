@@ -31,12 +31,11 @@
 					itemIdStr += ":" + item.dataVal;
 				}
 				let itemData = minecraftItems.get(itemIdStr);
-				if (itemData) {
-					imgSrc = "data:image/png;base64, " + itemData.icon;
+				if (!itemData) {
+					console.error(`no item data found for id ${item.id} with data value ${item.dataVal}`);
+					itemData = minecraftItems.get("373");
 				}
-				else {
-					console.error(`no item data found for id ${item.id}`);
-				}
+				imgSrc = "data:image/png;base64, " + itemData.icon;
 			}
 			itemColor = "#" + item.color;
 		}
