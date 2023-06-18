@@ -52,7 +52,21 @@ export async function GET({url, cookies}) {
 		}
 
 		if (collections.users) {
-			await collections.users.updateOne({ "discordId": user.discordId }, {$set: user}, {upsert: true});
+			await collections.users.insertOne(user).catch(async (err) => {
+				if (err.code == 11000) {
+					console.log(`user ${user.username} already inserted, updating discord data`);
+					if (collections.users) {
+						await collections.users.updateOne({"discordId": user.discordId }, {$set: {
+							displayName: user.displayName,
+							avatarId: user.avatarId,
+							discordAccessToken: user.discordAccessToken,
+							discordRefreshToken: user.discordRefreshToken,
+						}});
+					}
+					return;
+				}
+				console.error(err);
+			});
 		
 			let jwtToken = jsonwebtoken.sign({
 				exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24 * 7),
