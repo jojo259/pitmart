@@ -111,16 +111,16 @@ async function apiGetPlayer(tag: string): Promise<Player | null> {
 	let rankColor: string | null = apiData.player.monthlyRankColor;
 	let playerPrefix = pitMaster.Extra.RankPrefixes[rank]//.replace("@", pitMaster.Extra.ColorCodes[plus] || "§c");
 	if (plusColor && (plusColor as keyof typeof pitMaster.Extra.ColorCodes) in pitMaster.Extra.ColorCodes) {
-		playerPrefix = playerPrefix.replace("$", pitMaster.Extra.ColorCodes[plusColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
+		playerPrefix = playerPrefix.replaceAll("$", pitMaster.Extra.ColorCodes[plusColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
 	}
 	else {
-		playerPrefix = playerPrefix.replace("$", "");
+		playerPrefix = playerPrefix.replaceAll("$", "");
 	}
 	if (rankColor && (rankColor as keyof typeof pitMaster.Extra.ColorCodes) in pitMaster.Extra.ColorCodes) {
-		playerPrefix = playerPrefix.replace("@", pitMaster.Extra.ColorCodes[rankColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
+		playerPrefix = playerPrefix.replaceAll("@", pitMaster.Extra.ColorCodes[rankColor as keyof typeof pitMaster.Extra.ColorCodes] || "§c");
 	}
 	else {
-		playerPrefix = playerPrefix.replace("@", "");
+		playerPrefix = playerPrefix.replaceAll("@", "");
 	}
 
 	let player: Player = {
