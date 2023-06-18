@@ -4,6 +4,7 @@
 
 	export let item;
 	export let show = false;
+	export let useAbsolutePosition = true;
 	$: itemLines = [];
 
 	$: {
@@ -15,7 +16,7 @@
 	}
 </script>
 
-<div class={show ? "visible" : "hidden"}>
+<div class={show ? "visible" : "hidden"} class:position-absolute={useAbsolutePosition}>
 	{#each itemLines as lineText, i}
 		<MinecraftText text={lineText} />
 	{/each}
@@ -31,14 +32,17 @@
 		background: #120211;
 		color: gray;
 		font-family: Minecraft;
-		position: absolute;
-		top: 52px;
-		left: 0px;
-		z-index: 2;
 		line-height: 18px;
 		pointer-events: none;
 		overflow: hidden;
 		text-align: left;
+	}
+
+	.position-absolute {
+		position: absolute;
+		top: 52px;
+		left: 0px;
+		z-index: 2;
 	}
 
 	.visible {
