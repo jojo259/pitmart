@@ -16,6 +16,7 @@ export async function connectToDatabase() {
 
 	collections.players = db.collection("players");
 	collections.users = db.collection("users");
+	collections.users.createIndex({"discordId": 1}, {"unique": true});
 
 	console.log("connected to db");
 }
