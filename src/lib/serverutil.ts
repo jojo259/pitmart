@@ -3,6 +3,7 @@ import type { Player } from "$lib/types";
 import { hypixelApiKey, jwtSecret } from '$env/static/private';
 import type { User } from "$lib/types";
 import jsonwebtoken from "jsonwebtoken";
+import { fetchC } from "$lib/modules/fetcher";
 
 export async function getSavedUuid(tag: string): Promise<string | null> {
 	if (tag.length == 32 || tag.length == 36) {
@@ -30,8 +31,7 @@ export async function callPlayerApi(tag: string): Promise<any> {
 	else {
 		console.log(`getting player by name: ${tag}`);
 	}
-	let apiData: any = await fetch(`https://api.hypixel.net/player?key=${hypixelApiKey}${urlPart}`);
-	apiData = await apiData.json();
+	let apiData: any = await fetchC(`https://api.hypixel.net/player?key=${hypixelApiKey}${urlPart}`, 10);
 	return apiData;
 }
 
