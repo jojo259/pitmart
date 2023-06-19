@@ -29,7 +29,7 @@
 					{/if}
 				</div>
 				<a class="right-side-elem" style:margin-top="8px" href="/user">
-					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png">
+					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="discord avatar">
 				</a>
 			{:else}
 				<a class="right-side-elem" href="/api/discord/auth">Log in with Discord</a>
