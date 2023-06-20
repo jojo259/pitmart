@@ -257,23 +257,27 @@ div.svelte-lef4ik {
 }
 
 .dim-8 {
-	opacity: 20%;
+	color: #3c3c3c;
 }
 
 .dim-5 {
-	opacity: 50%;
+	color: #929292;
 }
 
 .dim-3 {
-	opacity: 70%;
+	color: #bebebe;
 }
 
 .dim-2 {
-	opacity: 80%;
+	color: #d3d3d3;
 }
 
 .dim-0 {
-	opacity: 100%;
+	color: #ffffff;
+}
+
+.box-title-gray {
+	color: #999;
 }
 
 .darken {
