@@ -24,7 +24,9 @@
 			{#if user}
 				{#if user.verifiedHypixelUuids.includes(player.uuid)}
 					<Window title="">
-						<span style:color="#ff0">Verified to you.</span>
+						<div style="display: flex; align-items: center;" class="verified-user">
+						<img src="/verified.svg" style="width: 20px" alt="Verified user"><span style:color="#7addb5">&nbsp;Verified to you.</span>
+					</div>
 					</Window>
 				{/if}
 			{/if}
@@ -63,7 +65,7 @@
 </div>
 
 <style>
-	div {
+	div:not(.verified-user) {
 		display: inline-block;
 		vertical-align: top;
 		flex-shrink: 0;

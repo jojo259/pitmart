@@ -3,7 +3,9 @@
 </script>
 
 <div>
-	<span class="box-title">{title}</span>
+	{#if title != ""}
+		<span class="box-title">{title}</span>
+	{/if}
 	<slot />
 </div>
 
