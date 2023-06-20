@@ -12,6 +12,10 @@
 		event.preventDefault();
 		goto(`/player/${tag}`);
 	}
+
+	//document.getElementById("search-input").focus();
+	//document.getElementById("search-input").select();
+	
 </script>
 
 <NavBar user={user} />
@@ -19,7 +23,7 @@
 <CenteredDiv>
 	<div>
 		<div>
-			<h1>P<a href="/player/mcpqndq">i</a>tMart</h1>
+			<h1>P<a href="/player/mcpqndq" class="blanklink">i</a>tMart</h1>
 			<h2>BETA!</h2>
 		</div>
 		<div>
@@ -41,8 +45,14 @@
 <style>
 	h1 {
 		font-size: 64px;
-		margin: 64px;
+		margin: 0;
+		margin-top: 100px;
+		background: linear-gradient(150deg, #e51bbc 0%, #f5d254 100%);
+      	background-clip: text;
+      	-webkit-background-clip: text;
+      	color: transparent;
 	}
+
 
 	h2 {
 		font-size:48px;

@@ -12,27 +12,30 @@
 	}
 </script>
 
-<header>
-	<div class="container" style:padding="0px" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<header class="container-header">
+	<div class="container" style:padding="0px" style:width="100%" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 		<div class="left-side">
 			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a><span class="listings-button">Listings</span>
 		</div>
 		<div class="right-side">
+
+
+
 			{#if user}
 				<div class="right-side-elem">
-					{#if logoutVisible}
-						<div>
-							<a href="/api/discord/logout">Log out</a>
-						</div>
-					{:else}
-						<span>Logged in as {user.username}</span>
-					{/if}
+					<span class="align-login-items">
+					<div class="logged-in" id="logged-in"><b class="pitmart-gold">Logged in</b> – @{user.username}<br>
+						<div class="logged-in-options dim-2"><span class="dim-3">My profile</span> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a></div>
+					</div> <img class="right-side-elem profile-picture" src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="Your profile pic!">
+				</span>
 				</div>
-				<a class="right-side-elem" style:margin-top="8px" href="/user">
-					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png">
-				</a>
 			{:else}
-				<a class="right-side-elem" href="/api/discord/auth">Log in with Discord</a>
+			<div class="right-side-elem">
+				<span class="align-login-items">
+					<div class="logged-in" id="logged-in"><b class="pitmart-gold">Log in with Discord</b>
+					</div> <img class="right-side-elem profile-picture" src="/who_are_you_lol.png" alt="Your profile pic!">
+				</span>
+			</div>
 			{/if}
 		</div>
 	</div>
@@ -53,12 +56,13 @@
 		align-items: center;
 	}
 
-	.left-side-elem {
-		margin-right: 24px;
+	.right-side {
+		text-align: right;
 	}
 
-	.right-side-elem {
-		margin-left: 24px;
+	.align-login-items {
+		display: flex;
+		align-items: center;
 	}
 
 	a {

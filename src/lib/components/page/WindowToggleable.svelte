@@ -12,9 +12,9 @@
 </script>
 
 <CenteredDiv>
-	<Window title="">
+	<Window title="{title}">
 		<div on:click={toggleWindow} on:keypress={toggleWindow} style:cursor=pointer>
-			<span>{title}{visible ? "" : " (click to expand)"}</span>
+			<span class="box-subtitle">{visible ? "(hide)" : " (click to expand)"}</span>
 		</div>
 		<div class="{visible ? "visible" : "hidden"}">
 			<slot />

@@ -58,7 +58,7 @@
 			</WindowToggleable>
 		</div>
 	{:else}
-		no player found / no pit data
+		No player found / no Pit data! :(
 	{/if}
 </CenteredDiv>
 

@@ -5,6 +5,7 @@
 	export let text: string;
 
 	let textHtml = "";
+	let isBold = false;
 	let me: HTMLElement;
 
 	function processText() {
@@ -18,7 +19,11 @@
 			if (nextCharSetsColor) {
 				nextCharSetsColor = false;
 				if (char in minecraftColorCodes) {
-					textHtml += `</span><span style="color:${minecraftColorCodes[char]}; font-family: Minecraft">`;
+					textHtml += (isBold ? "</span>" : "") + `</span><span style="color:${minecraftColorCodes[char]}; font-family: Minecraft">`;
+					isBold = false;
+				} else if (char == "l") {
+					textHtml += `<span style="font-weight: bold; font-family: Minecraft" class="ignore-default">`;
+					isBold = true;
 				}
 				return;
 			}
