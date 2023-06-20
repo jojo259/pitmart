@@ -17,21 +17,21 @@
 		user = data.user!;
 	}
 </script>
-<CenteredDiv>
+<div style="display: flex; flex-direction: row;">
 	{#if data.success == true}
-		<div style:width=max-content style:margin=16px>
+		<div style="width: max-content; margin: 24px; flex: 1;">
 			<PlayerCard uuid={player.uuid} />
 			{#if user}
 				{#if user.verifiedHypixelUuids.includes(player.uuid)}
 					<Window title="">
-						<span style:color="#ff0">Verified to YOU</span>
+						<span style:color="#ff0">Verified to you.</span>
 					</Window>
 				{/if}
 			{/if}
 			<StatusCard player={player} />
 			<UpgradesCard player={player} />
 		</div>
-		<div style:width=600px style:margin=16px>
+		<div style="margin: 24px;  flex: 2;">
 			<WindowToggleable title="Inventory">
 				<div>
 					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
@@ -60,7 +60,7 @@
 	{:else}
 		No player found / no Pit data! :(
 	{/if}
-</CenteredDiv>
+</div>
 
 <style>
 	div {

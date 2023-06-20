@@ -13,6 +13,7 @@ export interface Player {
 	rank: Rank;
 	gold: number;
 	renown: number;
+	kills: number;
 	playtimeHours: number;
 	hatColor: string;
 	lastLogin: Date;
