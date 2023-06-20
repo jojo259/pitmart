@@ -13,7 +13,13 @@
 	let prestigeColor: string;
 	let levelColor: string;
 	let supporterStr: string;
-	let cardLines: string[];
+	let playerInfo: string;
+
+	let killsFormatted: string;
+	let goldFormatted: string;
+	let renownFormatted: string;
+	let playtimeFormatted: string; // jojo i KNOW that this code sucks. but when i tried an array of strings it just said it was undefined...???? how
+	let levelFormatted: string; // used for making player level bold
 
 	$: playerPromise = (async function getPlayer(playerUUID: string): Promise<Player | null> {
 		let req = await fetch(`/api/player/${playerUUID}`);
@@ -24,15 +30,14 @@
 			prestigeColor = pitMaster.Pit.Prestiges[player.prestige].ColorCode;
 			levelColor = pitMaster.Pit.Levels[Math.floor(player.level / 10)].ColorCode;
 
-			supporterStr = player.supporter ? " §e✫" : "";
+			supporterStr = player.supporter ? " §e✫ " : "";
+	
 
-			cardLines = [
-				player.prefix + " " + player.username,
-				"Level: " + prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + player.level + prestigeColor + "]" + supporterStr,
-				"Gold: §6" + player.gold.toLocaleString() + "g",
-				"Renown: " + "§3" + player.renown,
-				"Playtime: §f" + player.playtimeHours + " hours",
-			];
+			playerInfo = prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + (player.level != 0 ? "§l" + player.level : player.level) + prestigeColor + "] " + supporterStr + player.prefix + " " + player.username;
+			killsFormatted = (10592).toLocaleString();
+			goldFormatted = player.gold.toLocaleString() + "g";
+			renownFormatted = (player.renown).toLocaleString();
+			playtimeFormatted = player.playtimeHours.toLocaleString() + " hours";
 
 			return player;
 		}
@@ -47,15 +52,18 @@
 		{:then player}
 			{#if player}
 				<div style:display="block">
-					<div>
-						<img src="https://crafatar.com/avatars/{player.uuid}" alt="player avatar" width=128px>
+					<div class="header-image">
+						<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=35px>
+						<span class="username"><MinecraftText text={playerInfo} />
+					</span>
 					</div>
 					<div>
-						{#each cardLines as line, i}
-							<p>
-								<MinecraftText text={"§7" + line} />
-							</p>
-						{/each}
+						<span style="color: #bebebe">
+							Kills: <span class="player-kills">{killsFormatted}</span><br>
+							Gold: <span class="player-gold">{goldFormatted}</span><br>
+							Renown: <span class="player-renown">{renownFormatted}</span><br>
+							Playtime: <span class="player-playtime">{playtimeFormatted}</span><br>
+						</span>
 						<div style:display="block" style:margin-top="6px" style:margin-left="0px">
 							<ProgressBar percentage={player.prestigeXpReqProportion * 100} barColor="#50caca" />
 						</div>
@@ -68,21 +76,15 @@
 				nodata {uuid}
 			{/if}
 		{:catch error}
-			error {uuid}
+			error {error}
 		{/await}
 	</Window>
 </ConditionalLink>
 
 <style>
-	div {
+	div:not(.header-image) {
 		display: inline-block;
 		margin: 4px;
 		vertical-align: top;
-	}
-
-	p {
-		color: #eee;
-		margin: 0px;
-		text-align: left;
 	}
 </style>

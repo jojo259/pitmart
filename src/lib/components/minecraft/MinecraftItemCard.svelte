@@ -24,10 +24,9 @@
 
 <style>
 	div {
-		border: 3px solid blue;
 		border-radius: 3px;
 		margin: 0px;
-		padding: 6px;
+		padding: 9px;
 		width: max-content;
 		background: #120211;
 		color: gray;

@@ -12,13 +12,13 @@
 			setHtml("<br>");
 			return;
 		}
-		textHtml = "<span style='color:#FFF'>";
+		textHtml = "<span style='color:#FFF;'>";
 		let nextCharSetsColor = false;
 		encode(text).split("").forEach((char: string) => {
 			if (nextCharSetsColor) {
 				nextCharSetsColor = false;
 				if (char in minecraftColorCodes) {
-					textHtml += `</span><span style="color:${minecraftColorCodes[char]}">`;
+					textHtml += `</span><span style="color:${minecraftColorCodes[char]}; font-family: Minecraft">`;
 				}
 				return;
 			}

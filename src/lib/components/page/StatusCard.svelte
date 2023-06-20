@@ -18,9 +18,12 @@
 </script>
 
 <Window title="Status">
-	<MinecraftText text={playerOnline ? "§aONLINE" : "§cOffline"} />
-	<MinecraftText text="Last seen in Pit {relativeTimestamp(player.pitLastSave)}" />
-	<MinecraftText text="Last seen on Hypixel {relativeTimestamp(latestOnHypixel)}" />
+	<span class="dim-3">
+		{playerOnline ? "Currently online." : "Offline."}<br>
+		Last seen in Pit {relativeTimestamp(player.pitLastSave)}.<br>
+		Last seen on Hypixel {relativeTimestamp(latestOnHypixel)}.
+	</span>
+	
 </Window>
 
 <style>

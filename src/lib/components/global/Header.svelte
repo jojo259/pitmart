@@ -23,13 +23,17 @@
 			<h2>BETA!</h2>
 		</div>
 		<div>
-			<span>Search player:</span>
-			<form on:submit={handleSubmit}>
-				<label>
-					<input bind:value={tag} type="text" placeholder="Enter username or UUID" />
-				</label>
-				<button type="submit">Search</button>
+            <div class="userbox-row infobox">
+				<form on:submit={handleSubmit}>
+
+                <div class="search-player">
+                    <img src="/person_search.svg" class="icon" alt="Person with magnifying glass">
+                    <input bind:value={tag} id="search-input" class="search-input" type="text" placeholder="Search for a player...">
+                    <img src="/search.svg" class="icon" alt="Magnifying glass">
+                </div>
 			</form>
+
+            </div>
 		</div>
 	</div>
 </CenteredDiv>
@@ -61,30 +65,7 @@
 		user-select: none;
 	}
 
-	form {
-		margin: 8px;
-	}
-
 	a {
 		text-decoration: none;
-	}
-
-	input {
-		width: 256px;
-		height: 32px;
-		font-size: 16px;
-		background-color: #999;
-		outline: 2px #111 solid;
-		border: none;
-	}
-
-	input:focus {
-		outline: 1px #999 solid;
-	}
-
-	::placeholder {
-		color: #333;
-		opacity: 1;
-		text-align: center;
 	}
 </style>

@@ -1,6 +1,6 @@
 * {
-	font-family: "Minecraft";
-	color: #111;
+	font-family: "Albert Sans";
+	color: #ffffff;
 }
 
 @font-face {
@@ -10,7 +10,294 @@
 	src: url("/MinecraftRegular.otf") format("opentype");
 }
 
+@font-face {
+	font-family: "Minecraft";
+	font-weight: bold;
+	src: url("/MinecraftBold.otf")
+}
+
+@font-face {
+	font-family: "Albert Sans";
+	font-weight: regular;
+	src: url("/AlbertSans-Regular.ttf")
+}
+
+@font-face {
+	font-family: "Albert Sans";
+	font-weight: bold;
+	src: url("/AlbertSans-SemiBold.ttf")
+}
+
 body {
-	background-color: #333;
+	font-family: 'Albert Sans';
+	background-color: #1f1f1f;
+	color: white;
 	margin: 0px;
+	padding: 0px;
+	font-size: 18px;
+}
+
+header {
+	height: 80px;
+	background: #0f0f0f;
+	position: fixed;
+	width: 100%;
+	z-index: 2;
+	box-sizing: border-box;
+}
+
+.userbox-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+.userbox-column {
+	display: flex;
+	flex-direction: column;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.small-column {
+	flex: 1;
+}
+.big-column { 
+	flex: 2;
+}
+
+.container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0 24px;
+}
+
+.left-header-container,
+.right-header-container, .header-image, .search-player, .listing {
+	display: flex;
+	align-items: center;
+}
+
+.right-header-container {
+	text-align: right;
+}
+
+.left-header-container {
+	margin-right: auto;
+}
+
+.username {
+	padding-left: 12px;
+	font-size: 24px;
+}
+
+.logged-in {
+	font-size: 20px;
+	margin-right: 12px;
+}
+
+.logged-in-options {
+	font-size: 15px;
+}
+
+.profile-picture {
+	width: 44px;
+	border-radius: 22px;
+}
+
+.box-left {
+	display: inline-block;
+	width: max-content;
+}
+
+.infobox-container {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.search-input {
+	all: initial;
+	width: 100%;
+	font-family: 'Albert Sans';
+	color: #fff;
+	margin-left: 4px;
+}
+
+.box-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff8;
+	text-transform: uppercase;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.box-scammer {
+	background: rgb(56,51,28);
+	background: linear-gradient(225deg, rgba(56,51,28,1) 0%, rgba(125,9,9,1) 100%);
+}
+
+.listing {
+	background-color: #573a37;
+	padding: 10px;
+	border-radius: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.selling-item {
+	border-radius: 15px;
+	background-color: #3d2927;
+}
+
+.listing-text {
+	padding-left: 20px;
+	max-width: 80%;
+	margin: 0;
+}
+
+.listing-name {
+	color: rgb(166, 166, 211);
+	font-weight: bold;
+}
+
+.player-kills {
+	color: #bc6c6c;
+}
+
+.player-gold {
+	color: #cf962f;
+}
+
+.player-renown {
+	color: #d4e12f;
+}
+
+.player-playtime {
+	color: #74a7c6;
+}
+
+.pitmart-logo {
+	font-size: 36px;
+	font-weight: bold;
+}
+
+.font-minecraft {
+	font-family: Minecraft, Unifont
+}
+
+.minecraft-head {
+	image-rendering: pixelated;
+	width: 35px;
+}
+
+a:link:not(.blanklink) {
+  color: #B15AC2;
+  background-color: transparent;
+}
+
+a:visited:not(.blanklink) {
+  color: #8a4a99;
+  background-color: transparent;
+}
+
+a:hover {
+  color: #E7C2EE;
+  background-color: transparent;
+}
+
+a:active {
+  color: #EDDDF0;
+  background-color: transparent;
+}
+
+div.svelte-lef4ik {
+	margin: 0;
+	text-align: left;
+}
+
+.infobox {
+	display: block;
+	background-color: #252525;
+	padding: 16px;
+	margin: 5px;
+	text-align: left;
+	border-radius: 15px;
+}
+
+.icon {
+	height: 24px;
+	opacity: 0.75;
+}
+
+.pitmart-gold {
+	color: #90c2d3;
+}
+
+.pitmart-logo-1 {
+	color: #59b7c0;
+}
+
+.pitmart-logo-2 {
+	color: #6b86ac;
+}
+
+.pitmart-logo-3 {
+	color: #314159;
+}
+
+.dim-8 {
+	opacity: 20%;
+}
+
+.dim-5 {
+	opacity: 50%;
+}
+
+.dim-3 {
+	opacity: 70%;
+}
+
+.dim-2 {
+	opacity: 80%;
+}
+
+.dim-0 {
+	opacity: 100%;
+}
+
+.darken {
+	filter: saturate(0%) brightness(0.4);
+}
+
+
+
+.itemcontainer {
+z-index:10;
+display:inline-block;
+visibility:hidden;
+opacity:0;
+position:absolute;
+margin-top:39px;
+margin-left:-35px;
+transition:opacity .1s
+}
+.MinecraftInventory {
+color:#fff;
+display:inline-block
+}
+.count {
+position:absolute;
+font-family: Minecraft;
+color:#fff;
+margin-left:21px;
+margin-top:18px
+}
+
+@media screen {
+#perks {
+	padding-right: 0px;
+}
 }

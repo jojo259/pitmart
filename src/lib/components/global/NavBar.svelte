@@ -15,7 +15,7 @@
 <header>
 	<div class="container" style:padding="0px" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 		<div class="left-side">
-			<a class="left-side-elem" href="/">PitMart</a>
+			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a><span class="listings-button">Listings</span>
 		</div>
 		<div class="right-side">
 			{#if user}
@@ -29,7 +29,7 @@
 					{/if}
 				</div>
 				<a class="right-side-elem" style:margin-top="8px" href="/user">
-					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="discord avatar">
+					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png">
 				</a>
 			{:else}
 				<a class="right-side-elem" href="/api/discord/auth">Log in with Discord</a>
@@ -39,14 +39,6 @@
 </header>
 
 <style>
-	header {
-		height: 64px;
-		background-color: #282828;
-	}
-
-	* {
-		font-size: 24px;
-	}
 
 	.container {
 		display: flex;
@@ -71,5 +63,23 @@
 
 	a {
 		text-decoration: none;
+	}
+
+	.listings-button {
+        background: linear-gradient(42deg, rgba(18,14,82,1) 0%, rgba(60,112,123,1) 100%); 
+        margin-left: 20px;
+        border-radius: 5px;
+        transition-duration: 0.2s;
+        cursor: pointer;
+        padding: 8px 18px;
+        box-shadow: 0px 0px #ad55a940;
+        font-size: 18px;
+        filter: saturate(0.3);
+        font-weight: bold;
+    }
+
+	.listings-button:hover {
+		filter: saturate(1);
+		box-shadow: 4px 4px #aaa;
 	}
 </style>

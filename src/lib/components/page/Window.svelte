@@ -3,7 +3,7 @@
 </script>
 
 <div>
-	<span>{title}</span>
+	<span class="box-title">{title}</span>
 	<slot />
 </div>
 
@@ -17,6 +17,15 @@
 		margin: 8px;
 		text-align: left;
 	}
+
+	div {
+        display: block;
+        background-color: #252525;
+        padding: 16px;
+        margin: 5px;
+        text-align: left;
+        border-radius: 15px;
+    }
 
 	span {
 		display: block;
