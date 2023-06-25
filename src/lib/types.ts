@@ -64,4 +64,21 @@ export interface User {
 	verifiedHypixelUuids: string[];
 }
 
+export interface Listing {
+	discordId: string;
+	owner: string;
+	pricePer: number;
+	currency: Currency;
+	message: string;
+	verified: boolean;
+	item: Item;
+}
+
+export enum Currency {
+	Gold = "Gold",
+	PantsBundle = "PB",
+	Vile = "Vile",
+	SewerRubbish = "Sewer rubbish",
+}
+
 export type Rank = "NON" | "VIP" | "VIP_PLUS" | "MVP" | "MVP_PLUS" | "SUPERSTAR" | "HELPER" | "MODERATOR" | "ADMIN" | "OWNER" | "YOUTUBER";
