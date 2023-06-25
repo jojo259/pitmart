@@ -14,3 +14,24 @@ body {
 	background-color: #333;
 	margin: 0px;
 }
+
+.tempnotification{
+	animation: fadeOut 1s 1s forwards, setHeightToZero 0s 2s forwards;
+	padding: 16px;
+	margin: 16px;
+	width: 256px;
+	height: 64px;
+	font-size: 24px;
+	z-index: 6900;
+	position: relative;
+	background-color: #999;
+	outline: 2px solid #000;
+	color: #333;
+}
+@keyframes fadeOut {
+	from {opacity: 1}
+	to {opacity: 0}
+}
+@keyframes setHeightToZero {
+	to {height: 0px; margin: 0; padding: 0; outline-width: 0px; border: 0px; width: 0px; font-size: 0px; z-index: 0;}
+}
