@@ -38,6 +38,7 @@
 		margin: 0px;
 		padding: 6px;
 		width: max-content;
+		height: max-content;
 		background: #120211;
 		color: gray;
 		font-family: Minecraft;
