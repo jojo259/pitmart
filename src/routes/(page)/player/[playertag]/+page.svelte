@@ -11,22 +11,25 @@
 	
 	let player: Player;
 	let user: User;
+	let playerVerifiedToCurrentUser = false;
 
 	$: {
 		player = data.player!;
 		user = data.user!;
+		playerVerifiedToCurrentUser = false;
+		if (user && user.verifiedHypixelUuids.includes(player.uuid)) {
+			playerVerifiedToCurrentUser = true;
+		}
 	}
 </script>
 <CenteredDiv>
 	{#if data.success == true}
 		<div style:width=max-content style:margin=16px>
 			<PlayerCard uuid={player.uuid} />
-			{#if user}
-				{#if user.verifiedHypixelUuids.includes(player.uuid)}
-					<Window title="">
-						<span style:color="#ff0">Verified to YOU</span>
-					</Window>
-				{/if}
+			{#if playerVerifiedToCurrentUser}
+				<Window title="">
+					<span style:color="#ff0">Verified to YOU</span>
+				</Window>
 			{/if}
 			<StatusCard player={player} />
 			<UpgradesCard player={player} />
@@ -34,27 +37,27 @@
 		<div style:width=600px style:margin=16px>
 			<WindowToggleable title="Inventory">
 				<div>
-					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
-					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(9)} />
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
 				</div>
 				<div>
-					<MinecraftInventory width={1} contents={player.inventories.inventoryArmor.reverse()} />
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryArmor.reverse()} />
 				</div>
 			</WindowToggleable>
 			<WindowToggleable title="Ender Chest & Mystic Well items">
 				<div>
-					<MinecraftInventory width={9} contents={player.inventories.inventoryEnderChest} />
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryEnderChest} />
 				</div>
 				<div>
-					<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellItem} />
-					<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellPants} />
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellItem} />
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellPants} />
 				</div>
 			</WindowToggleable>
 			<WindowToggleable title="Stash">
-				<MinecraftInventory width={9} contents={player.inventories.inventoryStash} />
+				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryStash} />
 			</WindowToggleable>
 			<WindowToggleable title="Spire Stash">
-				<MinecraftInventory width={9} contents={player.inventories.inventorySpireStash} />
+				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventorySpireStash} />
 			</WindowToggleable>
 		</div>
 	{:else}

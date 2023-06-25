@@ -8,10 +8,19 @@
 	$: itemLines = [];
 
 	$: {
-		if (item.name && item.lore) {
-			itemLines = [item.name].concat(item.lore);
+		if (item.name) {
+			itemLines = [item.name];
 		} else {
-			itemLines = Array(minecraftItems.get(item.id).name);
+			let itemData = minecraftItems.get(item.id);
+			if (!itemData) {
+				itemLines = ["Unknown item"];
+			}
+			else {
+				itemLines = [itemData.name];
+			}
+		}
+		if (item.lore) {
+			itemLines = itemLines.concat(item.lore);
 		}
 	}
 </script>
