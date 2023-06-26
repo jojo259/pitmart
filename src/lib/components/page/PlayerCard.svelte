@@ -84,4 +84,9 @@
 		margin: 4px;
 		vertical-align: top;
 	}
+
+	.username {
+		padding-left: 12px;
+		font-size: 24px;
+	}
 </style>

@@ -78,4 +78,10 @@
 	a {
 		text-decoration: none;
 	}
+
+	.userbox-row {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 </style>

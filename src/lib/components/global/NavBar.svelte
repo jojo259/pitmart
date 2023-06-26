@@ -95,4 +95,25 @@
 		z-index: 2;
 		box-sizing: border-box;
 	}
+
+	.container-header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 24px;
+	}
+
+	.logged-in {
+		font-size: 20px;
+		margin-right: 12px;
+	}
+
+	.logged-in-options {
+		font-size: 15px;
+	}
+
+	.profile-picture {
+		width: 44px;
+		border-radius: 22px;
+	}
 </style>
