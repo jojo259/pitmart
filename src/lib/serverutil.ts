@@ -258,7 +258,6 @@ async function parseInventory(inv: any): Promise<Item[]> {
 								color: obj.tag?.value?.display?.value?.color?.value?.toString(16) ?? null,
 								enchants: itemEnchants
 							} as Item;
-							//console.log(JSON.stringify(obj))
 							return obj;
 						});
 						resolve(items);
