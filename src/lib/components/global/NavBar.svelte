@@ -18,24 +18,32 @@
 			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a><span class="listings-button">Listings</span>
 		</div>
 		<div class="right-side">
-
-
-
 			{#if user}
 				<div class="right-side-elem">
 					<span class="align-login-items">
-					<div class="logged-in" id="logged-in"><b class="pitmart-gold">Logged in</b> – @{user.username}<br>
-						<div class="logged-in-options dim-2"><span class="dim-3">My profile</span> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a></div>
-					</div> <img class="right-side-elem profile-picture" src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="Your profile pic!">
-				</span>
+						<div class="logged-in" id="logged-in">
+							<b class="pitmart-gold">Logged in</b> – @{user.username}
+						<br>
+						<div class="logged-in-options dim-2">
+							<span class="dim-3">My profile</span> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a>
+						</div>
+						</div>
+						<a href="/user">
+							<img class="right-side-elem profile-picture" src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="Your profile pic!">
+						</a>
+					</span>
 				</div>
 			{:else}
-			<div class="right-side-elem">
-				<span class="align-login-items">
-					<div class="logged-in" id="logged-in"><b class="pitmart-gold">Log in with Discord</b>
-					</div> <img class="right-side-elem profile-picture" src="/who_are_you_lol.png" alt="Your profile pic!">
-				</span>
-			</div>
+				<div class="right-side-elem">
+					<span class="align-login-items">
+						<div class="logged-in" id="logged-in">
+							<b class="pitmart-gold">Log in with Discord</b>
+						</div>
+						<a href="/api/discord/auth">
+							<img class="right-side-elem profile-picture" src="/who_are_you_lol.png" alt="Your profile pic!">
+						</a>
+					</span>
+				</div>
 			{/if}
 		</div>
 	</div>
@@ -115,5 +123,21 @@
 	.profile-picture {
 		width: 44px;
 		border-radius: 22px;
+	}
+
+	.pitmart-gold {
+		color: #90c2d3;
+	}
+
+	.pitmart-logo-1 {
+		color: #59b7c0;
+	}
+
+	.pitmart-logo-2 {
+		color: #6b86ac;
+	}
+
+	.pitmart-logo-3 {
+		color: #314159;
 	}
 </style>

@@ -12,10 +12,6 @@
 		event.preventDefault();
 		goto(`/player/${tag}`);
 	}
-
-	//document.getElementById("search-input").focus();
-	//document.getElementById("search-input").select();
-	
 </script>
 
 <NavBar user={user} />
@@ -83,5 +79,28 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
+	}
+
+	a:link:not(.blanklink) {
+		color: #B15AC2;
+		background-color: transparent;
+	}
+
+	a:visited:not(.blanklink) {
+		color: #8a4a99;
+		background-color: transparent;
+	}
+
+	.search-input {
+		all: initial;
+		width: 100%;
+		font-family: 'Albert Sans';
+		color: #fff;
+		margin-left: 4px;
+	}
+
+	.icon {
+		height: 24px;
+		opacity: 0.75;
 	}
 </style>

@@ -34,4 +34,12 @@
 	.hidden {
 		display: none;
 	}
+
+	.box-subtitle {
+		font-size: 14px;
+		color: #fff6;
+		font-style: italic;
+		position: relative;
+		bottom: 5px;
+	}
 </style>

@@ -62,14 +62,6 @@ body {
 	text-align: center;
 }
 
-.search-input {
-	all: initial;
-	width: 100%;
-	font-family: 'Albert Sans';
-	color: #fff;
-	margin-left: 4px;
-}
-
 .box-title {
 	font-size: 18px;
 	font-weight: bold;
@@ -77,14 +69,6 @@ body {
 	text-transform: uppercase;
 	margin: 0;
 	margin-bottom: 10px;
-}
-
-.box-subtitle {
-	font-size: 14px;
-	color: #fff6;
-	font-style: italic;
-	position: relative;
-	bottom: 5px;
 }
 
 .box-scammer {
@@ -146,16 +130,6 @@ body {
 	width: 35px;
 }
 
-a:link:not(.blanklink) {
-  color: #B15AC2;
-  background-color: transparent;
-}
-
-a:visited:not(.blanklink) {
-  color: #8a4a99;
-  background-color: transparent;
-}
-
 a:hover {
   color: #E7C2EE;
   background-color: transparent;
@@ -178,27 +152,6 @@ div.svelte-lef4ik {
 	margin: 5px;
 	text-align: left;
 	border-radius: 15px;
-}
-
-.icon {
-	height: 24px;
-	opacity: 0.75;
-}
-
-.pitmart-gold {
-	color: #90c2d3;
-}
-
-.pitmart-logo-1 {
-	color: #59b7c0;
-}
-
-.pitmart-logo-2 {
-	color: #6b86ac;
-}
-
-.pitmart-logo-3 {
-	color: #314159;
 }
 
 .dim-8 {
