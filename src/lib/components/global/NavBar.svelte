@@ -40,7 +40,9 @@
 				<div class="right-side-elem">
 					<span class="align-login-items">
 						<div class="logged-in" id="logged-in">
-							<b class="pitmart-gold">Log in with Discord</b>
+							<a href="/api/discord/auth">
+								<b class="pitmart-gold">Log in with Discord</b>
+							</a>
 						</div>
 						<a href="/api/discord/auth">
 							<img class="right-side-elem profile-picture" src="/who_are_you_lol.png" alt="Your profile pic!">

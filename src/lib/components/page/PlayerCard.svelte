@@ -50,11 +50,15 @@
 		{:then player}
 			{#if player}
 				<div style:display="block">
-					<div class="header-image">
-						<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=35px>
-						<MinecraftText text={playerName} />
+					<div style:display="block">
+						<div style:display="inline-block">
+							<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=35px>
+						</div>
+						<div style:display="inline-block">
+							<MinecraftText text={playerName} />
+						</div>
 					</div>
-					<div>
+					<div style:display="inline-block">
 						{#each cardLines as line, i}
 							<p>
 								<MinecraftText text={"§7" + line} />
@@ -78,10 +82,11 @@
 </ConditionalLink>
 
 <style>
-	div:not(.header-image) {
+	div {
 		display: inline-block;
 		margin: 4px;
-		vertical-align: top;
+		vertical-align: middle;
+		text-decoration: none;
 	}
 
 	.username {
