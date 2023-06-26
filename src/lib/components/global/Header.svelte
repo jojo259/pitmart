@@ -28,7 +28,7 @@
 					<div class="search-player">
 						<img src="/image/playersearch.svg" class="icon" alt="Person with magnifying glass">
 						<input bind:value={tag} id="search-input" class="search-input" type="text" placeholder="Search for a player...">
-						<img src="/image/search.svg" class="icon" alt="Magnifying glass">
+						<img src="/image/search.svg" class="icon" alt="Magnifying glass" style:cursor="pointer" on:click={handleSubmit}>
 					</div>
 				</form>
 			</div>
