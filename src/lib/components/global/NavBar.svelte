@@ -129,6 +129,11 @@
 		color: #90c2d3;
 	}
 
+	.pitmart-logo {
+		font-size: 36px;
+		font-weight: bold;
+	}
+
 	.pitmart-logo-1 {
 		color: #59b7c0;
 	}
