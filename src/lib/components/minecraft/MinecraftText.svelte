@@ -13,7 +13,7 @@
 			setHtml("<br>");
 			return;
 		}
-		textHtml = "<span style='color:#FFF;'>";
+		textHtml = "<span style='color:#FFF; font-family: Minecraft'>";
 		let nextCharSetsColor = false;
 		encode(text).split("").forEach((char: string) => {
 			if (nextCharSetsColor) {
@@ -22,7 +22,7 @@
 					textHtml += (isBold ? "</span>" : "") + `</span><span style="color:${minecraftColorCodes[char]}; font-family: Minecraft">`;
 					isBold = false;
 				} else if (char == "l") {
-					textHtml += `<span style="font-weight: bold; font-family: Minecraft" class="ignore-default">`;
+					textHtml += `<span style="font-weight: bold; font-family: Minecraft">`;
 					isBold = true;
 				}
 				return;
