@@ -86,4 +86,13 @@
 		filter: saturate(1);
 		box-shadow: 4px 4px #aaa;
 	}
+
+	header {
+		height: 80px;
+		background: #0f0f0f;
+		position: fixed;
+		width: 100%;
+		z-index: 2;
+		box-sizing: border-box;
+	}
 </style>
