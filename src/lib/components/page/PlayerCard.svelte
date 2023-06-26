@@ -61,7 +61,7 @@
 					<div style:display="inline-block">
 						{#each cardLines as line, i}
 							<p>
-								<MinecraftText text={"§7" + line} />
+								<MinecraftText text={"§7" + line} useMinecraftFont={false} />
 							</p>
 						{/each}
 						<div style:display="block" style:margin-top="6px" style:margin-left="0px">

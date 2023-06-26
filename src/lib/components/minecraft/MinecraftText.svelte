@@ -3,6 +3,7 @@
 	import { encode } from 'html-entities';
 
 	export let text: string;
+	export let useMinecraftFont = true;
 
 	let textHtml = "";
 	let isBold = false;
@@ -13,16 +14,16 @@
 			setHtml("<br>");
 			return;
 		}
-		textHtml = "<span style='color:#FFF; font-family: Minecraft'>";
+		textHtml = "<span style='color:#FFF${useMinecraftFont ? '; font-family: Minecraft': ''}'>";
 		let nextCharSetsColor = false;
 		encode(text).split("").forEach((char: string) => {
 			if (nextCharSetsColor) {
 				nextCharSetsColor = false;
 				if (char in minecraftColorCodes) {
-					textHtml += (isBold ? "</span>" : "") + `</span><span style="color:${minecraftColorCodes[char]}; font-family: Minecraft">`;
+					textHtml += (isBold ? "</span>" : "") + `</span><span style="color:${minecraftColorCodes[char]}${useMinecraftFont ? '; font-family: Minecraft': ''}">`;
 					isBold = false;
 				} else if (char == "l") {
-					textHtml += `<span style="font-weight: bold; font-family: Minecraft">`;
+					textHtml += `<span style="font-weight: bold${useMinecraftFont ? '; font-family: Minecraft': ''}">`;
 					isBold = true;
 				}
 				return;
