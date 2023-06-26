@@ -35,7 +35,7 @@
 			{#if playerVerifiedToCurrentUser}
 				<Window title="">
 					<div style="display: flex; align-items: center;" class="verified-user">
-						<img src="/verified.svg" style="width: 20px" alt="Verified user"><span style:color="#7addb5">&nbsp;Verified to you.</span>
+						<img src="/image/verified.svg" style="width: 20px" alt="Verified user"><span style:color="#7addb5">&nbsp;Verified to you.</span>
 					</div>
 				</Window>
 			{/if}

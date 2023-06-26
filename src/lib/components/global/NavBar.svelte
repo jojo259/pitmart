@@ -45,7 +45,7 @@
 							</a>
 						</div>
 						<a href="/api/discord/auth">
-							<img class="right-side-elem profile-picture" src="/who_are_you_lol.png" alt="Your profile pic!">
+							<img class="right-side-elem profile-picture" src="/image/loggedout.png" alt="Your profile pic!">
 						</a>
 					</span>
 				</div>

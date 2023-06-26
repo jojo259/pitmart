@@ -7,25 +7,25 @@
 	font-family: "Minecraft";
 	font-style: normal;
 	font-weight: 400;
-	src: url("/MinecraftRegular.otf") format("opentype");
+	src: url("/font/MinecraftRegular.otf") format("opentype");
 }
 
 @font-face {
 	font-family: "Minecraft";
 	font-weight: bold;
-	src: url("/MinecraftBold.otf") format("opentype");
+	src: url("/font/MinecraftBold.otf") format("opentype");
 }
 
 @font-face {
 	font-family: "Albert Sans";
 	font-weight: regular;
-	src: url("/AlbertSans-Regular.ttf")
+	src: url("/font/AlbertSans-Regular.ttf")
 }
 
 @font-face {
 	font-family: "Albert Sans";
 	font-weight: bold;
-	src: url("/AlbertSans-SemiBold.ttf")
+	src: url("/font/AlbertSans-SemiBold.ttf")
 }
 
 body {
