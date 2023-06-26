@@ -25,7 +25,7 @@
 							<b class="pitmart-gold">Logged in</b> – @{user.username}
 						<br>
 						<div class="logged-in-options dim-2">
-							<span class="dim-3">My profile</span> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a>
+							<a href="/user"><span class="dim-3">My profile</span></a> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a>
 						</div>
 						</div>
 						<a href="/user">

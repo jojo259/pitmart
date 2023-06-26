@@ -103,4 +103,13 @@
 		height: 24px;
 		opacity: 0.75;
 	}
+
+	.infobox {
+		display: block;
+		background-color: #252525;
+		padding: 16px;
+		margin: 5px;
+		text-align: left;
+		border-radius: 15px;
+	}
 </style>
