@@ -52,7 +52,7 @@
 				<div style:display="block">
 					<div style:display="block">
 						<div style:display="inline-block">
-							<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=35px>
+							<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=48px>
 						</div>
 						<div style:display="inline-block">
 							<MinecraftText text={playerName} />
@@ -84,7 +84,7 @@
 <style>
 	div {
 		display: inline-block;
-		margin: 4px;
+		margin: 0px;
 		vertical-align: middle;
 		text-decoration: none;
 	}
@@ -99,7 +99,7 @@
 	}
 
 	img {
-		margin: 4px;
+		margin: 0px;
 		margin-right: 16px;
 	}
 </style>
