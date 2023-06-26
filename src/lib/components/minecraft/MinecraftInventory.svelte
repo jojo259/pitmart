@@ -6,7 +6,7 @@
 	export let listable = false;
 </script>
 
-<table>
+<div class="grid-container" style="grid-template-columns: repeat({width}, 1fr);">
 	{#each Array.from({ length: Math.max(contents.length, width) }) as _, i}
 		{#if i < contents.length}
 			{#if contents && contents[i]}
@@ -21,11 +21,12 @@
 		{:else}
 			<MinecraftItemSlot />
 		{/if}
-		{#if (i + 1) % width == 0}
-			<br>
-		{/if}
 	{/each}
-</table>
+</div>
 
 <style>
+	div {
+		display: grid;
+		grid-gap: 0px;
+	}
 </style>
