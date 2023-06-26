@@ -11,8 +11,7 @@
 	
 	let player: Player;
 	let user: User;
-	let gamer: 3;
-	let visibleInventory = "stash"; // yeah
+	let visibleInventory = "inventory";
 
 	$: {
 		player = data.player!;
@@ -44,24 +43,24 @@
 				<p class="box-title"><span class="dim-8"><span class={visibleInventory == "inventory" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("inventory")}>Inventory</span> &ndash; <span class={visibleInventory == "enderchest" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("enderchest")}>Ender Chest</span> &ndash; <span class={visibleInventory == "stash" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("stash")}>Stash</span></p>
 				<div>
 					{#if visibleInventory == "inventory"}
-					<div>
-					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
-					<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
-					</div>
-					<div>
-						<MinecraftInventory width={1} contents={player.inventories.inventoryArmor.reverse()} />
-					</div>
+						<div>
+							<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
+							<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+						</div>
+						<div>
+							<MinecraftInventory width={1} contents={player.inventories.inventoryArmor.reverse()} />
+						</div>
 					{:else if visibleInventory == "enderchest"}
-					<MinecraftInventory width={9} contents={player.inventories.inventoryEnderChest} />
+						<MinecraftInventory width={9} contents={player.inventories.inventoryEnderChest} />
 					{:else if visibleInventory == "stash"}
-					<div>
-						<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellItem} />
-						<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellPants} />
-					</div>
-					<div>
-					<MinecraftInventory width={9} contents={player.inventories.inventoryStash} />
-					<MinecraftInventory width={9} contents={player.inventories.inventorySpireStash} />
-					</div>
+						<div>
+							<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellItem} />
+							<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellPants} />
+						</div>
+						<div>
+							<MinecraftInventory width={9} contents={player.inventories.inventoryStash} />
+							<MinecraftInventory width={9} contents={player.inventories.inventorySpireStash} />
+						</div>
 					{/if}
 				</div>
 	
@@ -73,7 +72,7 @@
 			<UpgradesCard player={player} />
 		</div>
 	{:else}
-		No player found / no Pit data! :(
+		No player found! / no Pit data! / Error! :(
 	{/if}
 </div>
 

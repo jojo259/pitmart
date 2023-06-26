@@ -102,6 +102,7 @@
 		cursor: default;
 		user-select: none;
 		margin: 0px;
+		font-family: Minecraft;
 	}
 
 	div:hover {
