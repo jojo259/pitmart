@@ -74,32 +74,6 @@
 			</Window>
 			<UpgradesCard player={player} />
 		</div>
-		<div style:width=600px style:margin=16px>
-			<WindowToggleable title="Inventory">
-				<div>
-					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(9)} />
-					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
-				</div>
-				<div>
-					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryArmor.reverse()} />
-				</div>
-			</WindowToggleable>
-			<WindowToggleable title="Ender Chest & Mystic Well items">
-				<div>
-					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryEnderChest} />
-				</div>
-				<div>
-					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellItem} />
-					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellPants} />
-				</div>
-			</WindowToggleable>
-			<WindowToggleable title="Stash">
-				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryStash} />
-			</WindowToggleable>
-			<WindowToggleable title="Spire Stash">
-				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventorySpireStash} />
-			</WindowToggleable>
-		</div>
 	{:else}
 		No player found! / no Pit data! / Error! :(
 	{/if}
