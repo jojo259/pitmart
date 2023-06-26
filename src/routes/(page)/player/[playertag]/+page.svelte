@@ -12,10 +12,15 @@
 	let player: Player;
 	let user: User;
 	let visibleInventory = "inventory";
+	let playerVerifiedToCurrentUser = false;
 
 	$: {
 		player = data.player!;
 		user = data.user!;
+		playerVerifiedToCurrentUser = false;
+		if (user && user.verifiedHypixelUuids.includes(player.uuid)) {
+			playerVerifiedToCurrentUser = true;
+		}
 	}
 
 	function changeVisibleInventory(inventoryChange: string): void {
@@ -27,14 +32,12 @@
 	{#if data.success == true}
 		<div style="width: max-content; margin: 24px; flex: 1;">
 			<PlayerCard uuid={player.uuid} />
-			{#if user}
-				{#if user.verifiedHypixelUuids.includes(player.uuid)}
-					<Window title="">
-						<div style="display: flex; align-items: center;" class="verified-user">
+			{#if playerVerifiedToCurrentUser}
+				<Window title="">
+					<div style="display: flex; align-items: center;" class="verified-user">
 						<img src="/verified.svg" style="width: 20px" alt="Verified user"><span style:color="#7addb5">&nbsp;Verified to you.</span>
 					</div>
-					</Window>
-				{/if}
+				</Window>
 			{/if}
 			<StatusCard player={player} />
 		</div>
@@ -70,6 +73,32 @@
 				
 			</Window>
 			<UpgradesCard player={player} />
+		</div>
+		<div style:width=600px style:margin=16px>
+			<WindowToggleable title="Inventory">
+				<div>
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(9)} />
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+				</div>
+				<div>
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryArmor.reverse()} />
+				</div>
+			</WindowToggleable>
+			<WindowToggleable title="Ender Chest & Mystic Well items">
+				<div>
+					<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryEnderChest} />
+				</div>
+				<div>
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellItem} />
+					<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellPants} />
+				</div>
+			</WindowToggleable>
+			<WindowToggleable title="Stash">
+				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryStash} />
+			</WindowToggleable>
+			<WindowToggleable title="Spire Stash">
+				<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventorySpireStash} />
+			</WindowToggleable>
 		</div>
 	{:else}
 		No player found! / no Pit data! / Error! :(

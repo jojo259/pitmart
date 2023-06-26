@@ -52,3 +52,19 @@ export function romanize(num: number): string {
 	}
 	return roman;
 }
+
+export function createTempNotification(notiText: string) {
+	console.log(`notification: ${notiText}`);
+	let newDiv = document.createElement("div");
+	newDiv.classList.add("tempnotification");
+	newDiv.textContent = notiText;
+	let notificationsElem = document.getElementById("tempnotifications");
+	if (!notificationsElem) {
+		console.error("tempnotifications elem not found");
+		return;
+	}
+	notificationsElem.appendChild(newDiv);
+	setTimeout(() => {
+		newDiv.remove();
+	}, 2000)
+}

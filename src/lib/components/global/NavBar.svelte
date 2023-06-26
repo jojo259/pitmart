@@ -13,9 +13,12 @@
 </script>
 
 <header class="container-header">
+	<div id="tempnotifications" style="position: fixed; top: 32px; right: 32px; z-index: 999" />
 	<div class="container" style:padding="0px" style:width="100%" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 		<div class="left-side">
-			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a><span class="listings-button">Listings</span>
+			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a>
+			<span class="listings-button">Listings</span>
+			<a class="left-side-elem" href="/createlisting">Create listing</a>
 		</div>
 		<div class="right-side">
 			{#if user}
@@ -104,7 +107,7 @@
 		box-sizing: border-box;
 	}
 
-	.container-header {
+	.container-header { /* can be subsumed into header */
 		display: flex;
 		justify-content: space-between;
 		align-items: center;

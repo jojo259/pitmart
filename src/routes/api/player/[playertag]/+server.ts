@@ -1,10 +1,6 @@
 import { json } from "@sveltejs/kit";
-import * as nbt from "prismarine-nbt";
-import { collections } from "$lib/modules/database";
-import type { Player, Item, Rank, Enchant } from "$lib/types";
-import * as mongoDb from "mongodb";
-import * as pitMaster from "$lib/assets/pitmaster.json";
-import { callPlayerApi } from "$lib/serverutil";
+import type { Player } from "$lib/types";
+import { apiGetPlayer } from "$lib/serverutil";
 
 export async function GET(req) {
 	let tag = req.params.playertag;

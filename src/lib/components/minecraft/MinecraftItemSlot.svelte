@@ -1,6 +1,8 @@
 <script>
 	import MinecraftItemCard from "./MinecraftItemCard.svelte";
 	import minecraftItems from "minecraft-items";
+	import { goto } from '$app/navigation';
+	import { clickCreateListingString } from "$lib/constants";
 
 	import imgLeatherHelm from "$lib/assets/items/298.png";
 	import imgLeatherChestplate from "$lib/assets/items/299.png";
@@ -8,6 +10,7 @@
 	import imgLeatherBoots from "$lib/assets/items/301.png";
 
 	export let item = null;
+	export let listable = false;
 
 	let leatherItems = {
 		298: imgLeatherHelm,
@@ -15,6 +18,12 @@
 		300: imgLeatherLeggings,
 		301: imgLeatherBoots
 	};
+
+	$: {
+		if (listable && item.lore) {
+			item.lore.push(clickCreateListingString);
+		}
+	}
 
 	$: itemColor = "#fff";
 	$: imgSrc = "";
@@ -63,9 +72,15 @@
 	function onMouseLeave() {
 		showItemCard = false;
 	}
+
+	function handleClick() {
+		if (listable) {
+			goto(`/createlisting?tag=${"jojoq"}&itemjson=${encodeURIComponent(JSON.stringify(item))}`);
+		}
+	}
 </script>
 
-<div on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+<div on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave} on:click={handleClick}>
 	{#if item != null}
 		<img src={imgSrc} alt="item" draggable="false" style:background-color={itemColor} style:filter={item.count < 1 ? "saturate(0)" : ""} />
 		<MinecraftItemCard {item} show={showItemCard} />
