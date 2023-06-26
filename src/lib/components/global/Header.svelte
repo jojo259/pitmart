@@ -23,17 +23,15 @@
 			<h2>BETA!</h2>
 		</div>
 		<div>
-            <div class="userbox-row infobox">
+			<div class="userbox-row infobox">
 				<form on:submit={handleSubmit}>
-
-                <div class="search-player">
-                    <img src="/person_search.svg" class="icon" alt="Person with magnifying glass">
-                    <input bind:value={tag} id="search-input" class="search-input" type="text" placeholder="Search for a player...">
-                    <img src="/search.svg" class="icon" alt="Magnifying glass">
-                </div>
-			</form>
-
-            </div>
+					<div class="search-player">
+						<img src="/person_search.svg" class="icon" alt="Person with magnifying glass">
+						<input bind:value={tag} id="search-input" class="search-input" type="text" placeholder="Search for a player...">
+						<img src="/search.svg" class="icon" alt="Magnifying glass">
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </CenteredDiv>
@@ -44,11 +42,10 @@
 		margin: 0;
 		margin-top: 100px;
 		background: linear-gradient(150deg, #e51bbc 0%, #f5d254 100%);
-      	background-clip: text;
-      	-webkit-background-clip: text;
-      	color: transparent;
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
 	}
-
 
 	h2 {
 		font-size:48px;

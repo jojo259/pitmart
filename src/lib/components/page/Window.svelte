@@ -21,13 +21,13 @@
 	}
 
 	div {
-        display: block;
-        background-color: #252525;
-        padding: 16px;
-        margin: 5px;
-        text-align: left;
-        border-radius: 15px;
-    }
+		display: block;
+		background-color: #252525;
+		padding: 16px;
+		margin: 5px;
+		text-align: left;
+		border-radius: 15px;
+	}
 
 	span {
 		display: block;

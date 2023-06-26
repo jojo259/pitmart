@@ -13,12 +13,8 @@
 	let prestigeColor: string;
 	let levelColor: string;
 	let supporterStr: string;
-	let playerInfo: string;
-
-	let killsFormatted: string;
-	let goldFormatted: string;
-	let renownFormatted: string;
-	let playtimeFormatted: string; // jojo i KNOW that this code sucks. but when i tried an array of strings it just said it was undefined...???? how
+	let playerName: string;
+	let cardLines: string[];
 
 	$: playerPromise = (async function getPlayer(playerUUID: string): Promise<Player | null> {
 		let req = await fetch(`/api/player/${playerUUID}`);
@@ -30,12 +26,16 @@
 			levelColor = pitMaster.Pit.Levels[Math.floor(player.level / 10)].ColorCode;
 
 			supporterStr = player.supporter ? " §e✫" : "";
+
+			playerName = player.prefix + " " + player.username + supporterStr;
 		
-			playerInfo = (prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + player.level + prestigeColor + "] ") + (player.prefix).replace(/\[.+?\]/g, "") /* is this a stupid solution? heck yeah. but jojo's an evil man for choosing svelte. this is my payback */ + " " + player.username + supporterStr;
-			killsFormatted = (player.kills).toLocaleString();
-			goldFormatted = player.gold.toLocaleString() + "g";
-			renownFormatted = (player.renown).toLocaleString();
-			playtimeFormatted = player.playtimeHours.toLocaleString() + (player.playtimeHours == 1 ? " hour " : " hours");
+			cardLines = [
+				"Level: " + prestigeColor + "[" + "§e" + romanize(player.prestige) + prestigeColor + (player.prestige > 0 ? "-" : "") + levelColor + player.level + prestigeColor + "]",
+				"Kills: §c" + (player.kills).toLocaleString(),
+				"Gold: §6" + player.gold.toLocaleString() + "g",
+				"Renown: " + "§3" + player.renown.toLocaleString(),
+				"Playtime: §f" + player.playtimeHours.toLocaleString() + " hours",
+			];
 
 			return player;
 		}
@@ -52,15 +52,14 @@
 				<div style:display="block">
 					<div class="header-image">
 						<img src="https://crafatar.com/avatars/{player.uuid}?overlay" alt="player avatar" width=35px>
-						<span class="username"><MinecraftText text={playerInfo}/></span>
+						<MinecraftText text={playerName} />
 					</div>
 					<div>
-						<span style="color: #bebebe">
-							Kills: <span class="player-kills">{killsFormatted}</span><br>
-							Gold: <span class="player-gold">{goldFormatted}</span><br>
-							Renown: <span class="player-renown">{renownFormatted}</span><br>
-							Playtime: <span class="player-playtime">{playtimeFormatted}</span><br>
-						</span>
+						{#each cardLines as line, i}
+							<p>
+								<MinecraftText text={"§7" + line} />
+							</p>
+						{/each}
 						<div style:display="block" style:margin-top="6px" style:margin-left="0px">
 							<ProgressBar percentage={player.prestigeXpReqProportion * 100} barColor="#50caca" />
 						</div>
@@ -88,5 +87,14 @@
 	.username {
 		padding-left: 12px;
 		font-size: 24px;
+	}
+
+	p {
+		margin: 0px;
+	}
+
+	img {
+		margin: 4px;
+		margin-right: 16px;
 	}
 </style>

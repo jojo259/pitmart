@@ -29,8 +29,8 @@
 }
 
 body {
-	font-family: 'Albert Sans';
 	background-color: #1f1f1f;
+	font-family: 'Albert Sans';
 	color: white;
 	margin: 0px;
 	padding: 0px;
@@ -125,13 +125,13 @@ body {
 }
 
 a:hover {
-  color: #E7C2EE;
-  background-color: transparent;
+	color: #E7C2EE;
+	background-color: transparent;
 }
 
 a:active {
-  color: #EDDDF0;
-  background-color: transparent;
+	color: #EDDDF0;
+	background-color: transparent;
 }
 
 div.svelte-lef4ik {

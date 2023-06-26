@@ -38,7 +38,7 @@
 			{/if}
 			<StatusCard player={player} />
 		</div>
-		<div style="margin: 24px;  flex: 2;">
+		<div style="margin: 24px; flex: 2;">
 			<Window title="">
 				<p class="box-title"><span class="dim-8"><span class={visibleInventory == "inventory" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("inventory")}>Inventory</span> &ndash; <span class={visibleInventory == "enderchest" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("enderchest")}>Ender Chest</span> &ndash; <span class={visibleInventory == "stash" ? "box-title-gray" : "dim-8 clickable"} on:click={() => changeVisibleInventory("stash")}>Stash</span></p>
 				<div>

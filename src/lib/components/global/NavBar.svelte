@@ -78,17 +78,17 @@
 	}
 
 	.listings-button {
-        background: linear-gradient(42deg, rgba(18,14,82,1) 0%, rgba(60,112,123,1) 100%); 
-        margin-left: 20px;
-        border-radius: 5px;
-        transition-duration: 0.2s;
-        cursor: pointer;
-        padding: 8px 18px;
-        box-shadow: 0px 0px #ad55a940;
-        font-size: 18px;
-        filter: saturate(0.3);
-        font-weight: bold;
-    }
+		background: linear-gradient(42deg, rgba(18,14,82,1) 0%, rgba(60,112,123,1) 100%); 
+		margin-left: 20px;
+		border-radius: 5px;
+		transition-duration: 0.2s;
+		cursor: pointer;
+		padding: 8px 18px;
+		box-shadow: 0px 0px #ad55a940;
+		font-size: 18px;
+		filter: saturate(0.3);
+		font-weight: bold;
+	}
 
 	.listings-button:hover {
 		filter: saturate(1);

@@ -31,7 +31,7 @@
 		background: #120211;
 		color: gray;
 		font-family: Minecraft;
-		line-height: 18px;
+		line-height: 20px;
 		pointer-events: none;
 		overflow: hidden;
 		text-align: left;
