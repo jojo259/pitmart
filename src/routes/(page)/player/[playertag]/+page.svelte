@@ -47,22 +47,22 @@
 				<div>
 					{#if visibleInventory == "inventory"}
 						<div>
-							<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(9)} />
-							<MinecraftInventory width={9} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
+							<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(9)} />
+							<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMain.slice(0, 9)} /> <!-- the hotbar is in the wrong place for some reason so this is the hotbar. -->
 						</div>
 						<div>
-							<MinecraftInventory width={1} contents={player.inventories.inventoryArmor.reverse()} />
+							<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryArmor.reverse()} />
 						</div>
 					{:else if visibleInventory == "enderchest"}
-						<MinecraftInventory width={9} contents={player.inventories.inventoryEnderChest} />
+						<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryEnderChest} />
 					{:else if visibleInventory == "stash"}
 						<div>
-							<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellItem} />
-							<MinecraftInventory width={1} contents={player.inventories.inventoryMysticWellPants} />
+							<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellItem} />
+							<MinecraftInventory width={1} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryMysticWellPants} />
 						</div>
 						<div>
-							<MinecraftInventory width={9} contents={player.inventories.inventoryStash} />
-							<MinecraftInventory width={9} contents={player.inventories.inventorySpireStash} />
+							<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventoryStash} />
+							<MinecraftInventory width={9} listable={playerVerifiedToCurrentUser} contents={player.inventories.inventorySpireStash} />
 						</div>
 					{/if}
 				</div>
