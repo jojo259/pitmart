@@ -15,8 +15,8 @@
 	let supporterStr: string;
 	let cardLines: string[];
 
-	$: playerPromise = (async function getPlayer(playerUUID: string): Promise<Player | null> {
-		let req = await fetch(`/api/player/${playerUUID}`);
+	$: playerPromise = (async function getPlayer(): Promise<Player | null> {
+		let req = await fetch(`/api/player/${uuid}`);
 		let resp = await req.json();
 		if ("player" in resp) {
 			let player: Player = resp.player;
@@ -37,7 +37,7 @@
 			return player;
 		}
 		return null;
-	})(uuid);
+	})();
 </script>
 
 <ConditionalLink enabled={links} href="/player/{uuid}">
