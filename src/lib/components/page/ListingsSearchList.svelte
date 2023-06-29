@@ -30,7 +30,4 @@
 {/await}
 
 <style>
-	div {
-		display: inline-block;
-	}
 </style>

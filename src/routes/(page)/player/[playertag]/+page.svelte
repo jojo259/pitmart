@@ -18,16 +18,18 @@
 		player = data.player!;
 		user = data.user!;
 		playerVerifiedToCurrentUser = false;
-		if (user && player.uuid && user.verifiedHypixelUuids.includes(player.uuid)) {
+		if (user && player && user.verifiedHypixelUuids.includes(player.uuid)) {
 			playerVerifiedToCurrentUser = true;
 		}
 	}
 </script>
-<ListingsSearchList queryParams="owner=s{player.uuid}" />
 <CenteredDiv>
 	{#if data.success == true}
 		<div style:width=max-content style:margin=16px>
 			<PlayerCard uuid={player.uuid} />
+			<div style:display="block">
+				<ListingsSearchList queryParams="owner=s{player.uuid}" />
+			</div>
 			{#if playerVerifiedToCurrentUser}
 				<Window title="">
 					<span style:color="#ff0">Verified to YOU</span>
