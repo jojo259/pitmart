@@ -10,5 +10,5 @@
 </script>
 
 <main>
-	<button on:click={forceReload}>CLICK THIS IF YOU DO NOT AUTOMATICALLY GET REDIRECTED</button>
+	<button on:click={forceReload}>Click here if you don't automatically get redirected.</button>
 </main>

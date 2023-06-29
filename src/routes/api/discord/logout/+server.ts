@@ -1,5 +1,5 @@
 export async function GET({url, cookies}) {
-  console.log('redirect to / with cleared cookies');
+	console.log('redirect to / with cleared cookies');
 
 	cookies.set("jwt", "null", {
 		path: "/",

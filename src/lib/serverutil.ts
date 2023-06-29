@@ -187,6 +187,7 @@ export async function apiGetPlayer(tag: string): Promise<Player | null> {
 		rank: rank,
 		gold: Math.floor(pitData.cash) | 0,
 		renown: pitData.renown | 0,
+		kills: pitStats.kills,
 		playtimeHours: Math.ceil(pitStats.playtime_minutes / 60) | 0,
 		hatColor: "#" + pitData.hat_color?.toString(16),
 		lastLogin: new Date(apiData.player.lastLogin || 0),

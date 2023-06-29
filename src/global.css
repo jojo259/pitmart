@@ -1,18 +1,171 @@
-* {
-	font-family: "Minecraft";
-	color: #111;
+*:not(.ignore-default) {
+	font-family: "Albert Sans";
+	color: #ffffff;
 }
 
 @font-face {
 	font-family: "Minecraft";
 	font-style: normal;
 	font-weight: 400;
-	src: url("/MinecraftRegular.otf") format("opentype");
+	src: url("/font/MinecraftRegular.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "Minecraft";
+	font-weight: bold;
+	src: url("/font/MinecraftBold.otf") format("opentype");
+}
+
+@font-face {
+	font-family: "Albert Sans";
+	font-weight: regular;
+	src: url("/font/AlbertSans-Regular.ttf")
+}
+
+@font-face {
+	font-family: "Albert Sans";
+	font-weight: bold;
+	src: url("/font/AlbertSans-SemiBold.ttf")
 }
 
 body {
-	background-color: #333;
+	background-color: #1f1f1f;
+	font-family: "Albert Sans";
+	color: white;
 	margin: 0px;
+	padding: 0px;
+	font-size: 18px;
+}
+
+.left-header-container, .right-header-container, .header-image, .search-player, .listing {
+	display: flex;
+	align-items: center;
+}
+
+.right-header-container {
+	text-align: right;
+}
+
+.left-header-container {
+	margin-right: auto;
+}
+
+.box-left {
+	display: inline-block;
+	width: max-content;
+}
+
+.infobox-container {
+	display: flex;
+	justify-content: center;
+	text-align: center;
+}
+
+.box-title {
+	font-size: 18px;
+	font-weight: bold;
+	color: #fff8;
+	text-transform: uppercase;
+	margin: 0;
+	margin-bottom: 10px;
+}
+
+.box-scammer {
+	background: rgb(56,51,28);
+	background: linear-gradient(225deg, rgba(56,51,28,1) 0%, rgba(125,9,9,1) 100%);
+}
+
+.listing {
+	background-color: #573a37;
+	padding: 10px;
+	border-radius: 15px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.selling-item {
+	border-radius: 15px;
+	background-color: #3d2927;
+}
+
+.listing-text {
+	padding-left: 20px;
+	max-width: 80%;
+	margin: 0;
+}
+
+.listing-name {
+	color: rgb(166, 166, 211);
+	font-weight: bold;
+}
+
+.player-kills {
+	color: #bc6c6c;
+}
+
+.player-gold {
+	color: #cf962f;
+}
+
+.player-renown {
+	color: #d4e12f;
+}
+
+.player-playtime {
+	color: #74a7c6;
+}
+
+.font-minecraft {
+	font-family: Minecraft, Unifont
+}
+
+.minecraft-head {
+	image-rendering: pixelated;
+	width: 35px;
+}
+
+a:hover {
+	color: #E7C2EE;
+	background-color: transparent;
+}
+
+a:active {
+	color: #EDDDF0;
+	background-color: transparent;
+}
+
+.dim-8 {
+	color: #3c3c3c;
+}
+
+.dim-5 {
+	color: #929292;
+}
+
+.dim-3 {
+	color: #bebebe;
+}
+
+.dim-2 {
+	color: #d3d3d3;
+}
+
+.dim-0 {
+	color: #ffffff;
+}
+
+.box-title-gray {
+	color: #999;
+}
+
+.darken {
+	filter: saturate(0%) brightness(0.4);
+}
+
+@media screen {
+	#perks {
+		padding-right: 0px;
+	}
 }
 
 .tempnotification{

@@ -12,43 +12,49 @@
 	}
 </script>
 
-<header>
+<header class="container-header">
 	<div id="tempnotifications" style="position: fixed; top: 32px; right: 32px; z-index: 999" />
-	<div class="container" style:padding="0px" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
+	<div class="container" style:padding="0px" style:width="100%" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 		<div class="left-side">
-			<a class="left-side-elem" href="/">PitMart</a>
+			<a class="left-side-elem pitmart-logo" href="/"><span class="pitmart-logo-1">Pit</span><span class="pitmart-logo-2">Mart</span><span class="pitmart-logo-3">.net</span></a>
+			<span class="listings-button">Listings</span>
 			<a class="left-side-elem" href="/createlisting">Create listing</a>
 		</div>
 		<div class="right-side">
 			{#if user}
 				<div class="right-side-elem">
-					{#if logoutVisible}
-						<div>
-							<a href="/api/discord/logout">Log out</a>
+					<span class="align-login-items">
+						<div class="logged-in" id="logged-in">
+							<b class="pitmart-gold">Logged in</b> – @{user.username}
+						<br>
+						<div class="logged-in-options dim-2">
+							<a href="/user"><span class="dim-3">My profile</span></a> • <a href="api/discord/logout"><span class="dim-3">Log out</span></a>
 						</div>
-					{:else}
-						<span>Logged in as {user.username}</span>
-					{/if}
+						</div>
+						<a href="/user">
+							<img class="right-side-elem profile-picture" src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="Your profile pic!">
+						</a>
+					</span>
 				</div>
-				<a class="right-side-elem" style:margin-top="8px" href="/user">
-					<img width=44px src="https://cdn.discordapp.com/avatars/{user.discordId}/{user.avatarId}.png" alt="discord avatar">
-				</a>
 			{:else}
-				<a class="right-side-elem" href="/api/discord/auth">Log in with Discord</a>
+				<div class="right-side-elem">
+					<span class="align-login-items">
+						<div class="logged-in" id="logged-in">
+							<a href="/api/discord/auth">
+								<b class="pitmart-gold">Log in with Discord</b>
+							</a>
+						</div>
+						<a href="/api/discord/auth">
+							<img class="right-side-elem profile-picture" src="/image/loggedout.png" alt="Your profile pic!">
+						</a>
+					</span>
+				</div>
 			{/if}
 		</div>
 	</div>
 </header>
 
 <style>
-	header {
-		height: 64px;
-		background-color: #282828;
-	}
-
-	* {
-		font-size: 24px;
-	}
 
 	.container {
 		display: flex;
@@ -63,15 +69,85 @@
 		align-items: center;
 	}
 
-	.left-side-elem {
-		margin-right: 24px;
+	.right-side {
+		text-align: right;
 	}
 
-	.right-side-elem {
-		margin-left: 24px;
+	.align-login-items {
+		display: flex;
+		align-items: center;
 	}
 
 	a {
 		text-decoration: none;
+	}
+
+	.listings-button {
+		background: linear-gradient(42deg, rgba(18,14,82,1) 0%, rgba(60,112,123,1) 100%); 
+		margin-left: 20px;
+		border-radius: 5px;
+		transition-duration: 0.2s;
+		cursor: pointer;
+		padding: 8px 18px;
+		box-shadow: 0px 0px #ad55a940;
+		font-size: 18px;
+		filter: saturate(0.3);
+		font-weight: bold;
+	}
+
+	.listings-button:hover {
+		filter: saturate(1);
+		box-shadow: 4px 4px #aaa;
+	}
+
+	header {
+		height: 80px;
+		background: #0f0f0f;
+		position: fixed;
+		width: 100%;
+		z-index: 2;
+		box-sizing: border-box;
+	}
+
+	.container-header { /* can be subsumed into header */
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 0 24px;
+	}
+
+	.logged-in {
+		font-size: 20px;
+		margin-right: 12px;
+	}
+
+	.logged-in-options {
+		font-size: 15px;
+	}
+
+	.profile-picture {
+		width: 44px;
+		border-radius: 22px;
+	}
+
+	.pitmart-gold {
+		color: #90c2d3;
+	}
+
+	.pitmart-logo {
+		font-size: 36px;
+		font-weight: bold;
+	}
+
+	.pitmart-logo-1 {
+		color: #59b7c0;
+	}
+
+	.pitmart-logo-2 {
+		color: #6b86ac;
+	}
+
+	.pitmart-logo-3 {
+		color: #314159;
 	}
 </style>

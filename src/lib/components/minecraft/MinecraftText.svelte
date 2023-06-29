@@ -3,8 +3,10 @@
 	import { encode } from 'html-entities';
 
 	export let text: string;
+	export let useMinecraftFont = true;
 
 	let textHtml = "";
+	let isBold = false;
 	let me: HTMLElement;
 
 	function processText() {
@@ -12,13 +14,17 @@
 			setHtml("<br>");
 			return;
 		}
-		textHtml = "<span style='color:#FFF'>";
+		textHtml = "<span style='color:#FFF${useMinecraftFont ? '; font-family: Minecraft': ''}'>";
 		let nextCharSetsColor = false;
 		encode(text).split("").forEach((char: string) => {
 			if (nextCharSetsColor) {
 				nextCharSetsColor = false;
 				if (char in minecraftColorCodes) {
-					textHtml += `</span><span style="color:${minecraftColorCodes[char]}">`;
+					textHtml += (isBold ? "</span>" : "") + `</span><span style="color:${minecraftColorCodes[char]}${useMinecraftFont ? '; font-family: Minecraft': ''}">`;
+					isBold = false;
+				} else if (char == "l") {
+					textHtml += `<span style="font-weight: bold${useMinecraftFont ? '; font-family: Minecraft': ''}">`;
+					isBold = true;
 				}
 				return;
 			}

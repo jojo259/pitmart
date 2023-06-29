@@ -19,17 +19,19 @@
 <CenteredDiv>
 	<div>
 		<div>
-			<h1>P<a href="/player/mcpqndq">i</a>tMart</h1>
+			<h1>P<a href="/player/mcpqndq" class="blanklink">i</a>tMart</h1>
 			<h2>BETA!</h2>
 		</div>
 		<div>
-			<span>Search player:</span>
-			<form on:submit={handleSubmit}>
-				<label>
-					<input bind:value={tag} type="text" placeholder="Enter username or UUID" />
-				</label>
-				<button type="submit">Search</button>
-			</form>
+			<div class="userbox-row infobox">
+				<form on:submit={handleSubmit}>
+					<div class="search-player">
+						<img src="/image/playersearch.svg" class="icon" alt="Person with magnifying glass">
+						<input bind:value={tag} id="search-input" class="search-input" type="text" placeholder="Search for a player...">
+						<img src="/image/search.svg" class="icon" alt="Magnifying glass" style:cursor="pointer" on:click={handleSubmit}>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </CenteredDiv>
@@ -37,7 +39,12 @@
 <style>
 	h1 {
 		font-size: 64px;
-		margin: 64px;
+		margin: 0;
+		margin-top: 100px;
+		background: linear-gradient(150deg, #e51bbc 0%, #f5d254 100%);
+		background-clip: text;
+		-webkit-background-clip: text;
+		color: transparent;
 	}
 
 	h2 {
@@ -61,30 +68,45 @@
 		user-select: none;
 	}
 
-	form {
-		margin: 8px;
-	}
-
 	a {
 		text-decoration: none;
 	}
 
-	input {
-		width: 256px;
-		height: 32px;
-		font-size: 16px;
-		background-color: #999;
-		outline: 2px #111 solid;
-		border: none;
+	.userbox-row {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
 
-	input:focus {
-		outline: 1px #999 solid;
+	a:link:not(.blanklink) {
+		color: #B15AC2;
+		background-color: transparent;
 	}
 
-	::placeholder {
-		color: #333;
-		opacity: 1;
-		text-align: center;
+	a:visited:not(.blanklink) {
+		color: #8a4a99;
+		background-color: transparent;
+	}
+
+	.search-input {
+		all: initial;
+		width: 100%;
+		font-family: 'Albert Sans';
+		color: #fff;
+		margin-left: 4px;
+	}
+
+	.icon {
+		height: 24px;
+		opacity: 0.75;
+	}
+
+	.infobox {
+		display: block;
+		background-color: #252525;
+		padding: 16px;
+		margin: 5px;
+		text-align: left;
+		border-radius: 15px;
 	}
 </style>

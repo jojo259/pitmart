@@ -3,7 +3,9 @@
 </script>
 
 <div>
-	<span>{title}</span>
+	{#if title != ""}
+		<span class="box-title">{title}</span>
+	{/if}
 	<slot />
 </div>
 
@@ -16,6 +18,15 @@
 		padding: 8px;
 		margin: 8px;
 		text-align: left;
+	}
+
+	div {
+		display: block;
+		background-color: #252525;
+		padding: 16px;
+		margin: 5px;
+		text-align: left;
+		border-radius: 15px;
 	}
 
 	span {
