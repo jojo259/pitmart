@@ -1,5 +1,5 @@
 import { startDiscordBot } from "./discordbot/bot";
-import { runDiscordBot } from '$env/static/private';
+import { runDiscordBot, discordRequestsLogWebhookUrl, node_env } from '$env/static/private';
 import type { User } from "$lib/types";
 import { resolveUser } from "$lib/serverutil";
 
@@ -22,13 +22,31 @@ export const handle = (async ({ event, resolve }) => {
 
 	const response = await resolve({ ...event, locals: { user } });
 
+	let reqTime = Date.now() - requestStartTime;
+
 	console.log(
 		new Date(requestStartTime),
 		event.request.method,
 		event.url.pathname,
-		`(${Date.now() - requestStartTime}ms)`,
+		`(${reqTime}ms)`,
 		response.status
 	);
+
+	if (node_env == "production") {
+		let logStr = `\`${event.request.method} ${response.status} ${reqTime}ms ${event.url.pathname}\``;
+
+		fetch(discordRequestsLogWebhookUrl, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				content: logStr,
+				allowed_mentions: {"parse": []},
+			})}
+		);
+	}
+
 	return response;
 });
 
