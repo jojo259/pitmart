@@ -23,12 +23,15 @@ export async function GET({url}) {
 				g: number, checks for greater than
 				l: number, checks for less than
 			operation value: the value that is checked against
-			enchants are a special case which will be implemented later
+			enchants are a special case where if the query parameter key starts with "enchant." then:
+				the query's enchant is the remaining part of the query parameter key
+				it searches for the specified enchant with the specified operation and level
 			examples:
 				item.id=e346 checks for item.id being equal to 346
 				item.lives=g5 checks for item.lives being greater than 5
 				item.maxLives=l10 checks for item.maxLives being less than 10
 				currency=svile checks for the listing's currency being equal to the string "vile"
+				enchant.combo_xp=e2 checks for combo_xp enchant at level 2
 
 	*/
 
@@ -52,6 +55,20 @@ export async function GET({url}) {
 		}
 		if (["e", "g", "l"].includes(operationChar)) {
 			operationVal = parseInt(operationVal);
+		}
+		if (key.startsWith("enchant.")) {
+			let enchantKey = key.slice(8);
+			dbQueryAnds.push({
+				"item.enchants": {
+					$elemMatch: {
+						key: enchantKey,
+						level: {
+							[operation]: operationVal
+						}
+					}
+				}
+			});
+			continue;
 		}
 		dbQueryAnds.push({[key]: {[operation]: operationVal}})
 	}
