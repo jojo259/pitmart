@@ -8,6 +8,7 @@
 	import StatusCard from "$lib/components/page/StatusCard.svelte";
 	import type { Player, User } from "$lib/types";
 	import UpgradesCard from "$lib/components/page/UpgradesCard.svelte";
+	import ListingsSearchList from "$lib/components/page/ListingsSearchList.svelte";
 	
 	let player: Player;
 	let user: User;
@@ -22,6 +23,7 @@
 		}
 	}
 </script>
+<ListingsSearchList queryParams="owner=s{player.uuid}" />
 <CenteredDiv>
 	{#if data.success == true}
 		<div style:width=max-content style:margin=16px>
