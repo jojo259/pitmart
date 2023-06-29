@@ -17,7 +17,7 @@
 		player = data.player!;
 		user = data.user!;
 		playerVerifiedToCurrentUser = false;
-		if (user && user.verifiedHypixelUuids.includes(player.uuid)) {
+		if (user && player.uuid && user.verifiedHypixelUuids.includes(player.uuid)) {
 			playerVerifiedToCurrentUser = true;
 		}
 	}
