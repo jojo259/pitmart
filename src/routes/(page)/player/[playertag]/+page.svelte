@@ -3,6 +3,7 @@
 	import MinecraftInventory from "$lib/components/minecraft/MinecraftInventory.svelte";
 	import Window from "$lib/components/page/Window.svelte";
 	import WindowToggleable from "$lib/components/page/WindowToggleable.svelte";
+	import WindowInventoriesTabbed from "$lib/components/page/WindowInventoriesTabbed.svelte";
 	import CenteredDiv from "$lib/components/page/CenteredDiv.svelte";
 	import PlayerCard from "$lib/components/page/PlayerCard.svelte";
 	import StatusCard from "$lib/components/page/StatusCard.svelte";
@@ -72,6 +73,8 @@
 				</div>
 				
 			</Window>
+		<div style="margin: 24px;  flex: 2;">
+			<WindowInventoriesTabbed inventories={{"Inventory": player.inventories.inventoryMain.slice(9).concat(player.inventories.inventoryMain.slice(0, 9)), "EnderChest": player.inventories.inventoryEnderChest, "Stash": player.inventories.inventoryStash, "SpireStash": player.inventories.inventorySpireStash}} /> <!-- main inventory is sliced to move the hotbar into the correct place then  -->
 			<UpgradesCard player={player} />
 		</div>
 	{:else}
