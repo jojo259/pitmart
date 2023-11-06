@@ -1,16 +1,18 @@
 import * as mongoDB from "mongodb";
 import { mongoConnectionString } from '$env/static/private';
 
+export const client: mongoDB.MongoClient = new mongoDB.MongoClient(mongoConnectionString);
+
 connectToDatabase();
 
 export const collections: {
 	players?: mongoDB.Collection;
 	users?: mongoDB.Collection;
 	listings?: mongoDB.Collection;
+	items?: mongoDB.Collection;
 } = {};
 
 export async function connectToDatabase() {
-	const client: mongoDB.MongoClient = new mongoDB.MongoClient(mongoConnectionString);
 	await client.connect();
 
 	const db: mongoDB.Db = client.db("pitmart");
@@ -21,6 +23,8 @@ export async function connectToDatabase() {
 	collections.users.createIndex({"discordId": 1}, {"unique": true});
 
 	collections.listings = db.collection("listings");
+
+	collections.items = db.collection("items");
 
 	console.log("connected to db");
 }

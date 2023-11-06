@@ -1,5 +1,5 @@
-import { collections } from "$lib/modules/database";
-import type { Player, Item, Rank, Enchant } from "$lib/types";
+import { collections, client } from "$lib/modules/database";
+import type { Player, Item, Rank, Enchant, ItemInstance } from "$lib/types";
 import { hypixelApiKey, jwtSecret } from '$env/static/private';
 import type { User } from "$lib/types";
 import jsonwebtoken from "jsonwebtoken";
@@ -209,6 +209,11 @@ export async function apiGetPlayer(tag: string): Promise<Player | null> {
 		}
 	};
 
+	let playerLastSeen: Date = player.lastLogin > player.lastLogout ? new Date() : new Date(Math.max(player.lastLogin.valueOf(), player.lastLogout.valueOf()) || 0);
+
+	let allPlayerItems = Object.values(player.inventories).flat();
+	ingestItemsAndDeleteOldPlayerItems(allPlayerItems, player.uuid, playerLastSeen);
+
 	if (collections.players) {
 		collections.players.updateOne({ "uuid": player.uuid }, {$set: player}, {
 			upsert: true
@@ -216,6 +221,41 @@ export async function apiGetPlayer(tag: string): Promise<Player | null> {
 	}
 
 	return player;
+}
+
+async function parseInventoryAndIngestItems(inv: any) {
+	let items = await parseInventory(inv);
+	return items;
+}
+
+async function ingestItemsAndDeleteOldPlayerItems(items: Item[], ownerUuid: string, ownerLastSeen: Date) {
+	if (collections.items) {
+		const session = client.startSession();
+		try {
+			await session.startTransaction();
+			let deleteOperation = await collections.items.deleteMany({ ownerUuid: ownerUuid }, { session });
+			if (items.length > 0) {
+				let nonEmptyItems = items.filter(function(item) {
+					return item.id != null;
+				});
+				let itemInstances = nonEmptyItems.map(function(item) {
+					let itemInstance = {
+						ownerUuid: ownerUuid,
+						seenOnApiAt: new Date(),
+						seenOnlineAt: ownerLastSeen,
+						item: item,
+					} as ItemInstance;
+					return itemInstance;
+				});
+				let insertOperation = await collections.items.insertMany(itemInstances, { session });
+			}
+			await session.commitTransaction();
+		} catch (error) {
+			await session.abortTransaction(); // literally don't care if it errors there are issues with concurrent transactions but it doesnt matter as long as one of them goes through which seems to be what happens // nvm items get duplicated sometimes whatever
+		} finally {
+			await session.endSession();
+		}
+	}
 }
 
 async function parseInventory(inv: any): Promise<Item[]> {

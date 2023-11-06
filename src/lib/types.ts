@@ -49,6 +49,13 @@ export interface Item {
 	enchants: Enchant[] | null;
 }
 
+export interface ItemInstance {
+	ownerUuid: string;
+	seenOnApiAt: Date;
+	seenOnlineAt: Date;
+	item: Item;
+}
+
 export interface Enchant {
 	key: string;
 	level: number;
