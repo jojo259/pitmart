@@ -17,6 +17,7 @@
 	<div class="container" style:padding="0px" style:padding-left="32px" style:padding-right="10px" style:margin-top="0px" on:mouseenter={onMouseEnter} on:mouseleave={onMouseLeave}>
 		<div class="left-side">
 			<a class="left-side-elem" href="/">PitMart</a>
+			<a class="left-side-elem" href="https://discord.gg/4YBFyA6X7b">Discord</a>
 			<a class="left-side-elem" href="/createlisting">Create listing</a>
 		</div>
 		<div class="right-side">
