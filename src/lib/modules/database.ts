@@ -1,7 +1,6 @@
 import * as mongoDB from "mongodb";
-import { mongoConnectionString } from '$env/static/private';
 
-export const client: mongoDB.MongoClient = new mongoDB.MongoClient(mongoConnectionString);
+export const client: mongoDB.MongoClient = new mongoDB.MongoClient(process.env.mongoConnectionString!);
 
 connectToDatabase();
 

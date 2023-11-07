@@ -1,8 +1,10 @@
 console.log("bot init");
 
 import 'dotenv/config' // used instead of default sveltekit setup because of issues with new discord clients being spawned on every hot reload meaning that this file needs to be able to run independently
-import { Client, Events, GatewayIntentBits, Collection } from "discord.js";
+import { Client, Events, GatewayIntentBits, Collection, ChannelType } from "discord.js";
 import type { Command } from "./types";
+
+import { ingestTradingMessage } from "../lib/modules/tradingmessageingestor.ts";
 
 import pingCommand from "./commands/ping.ts";
 
@@ -32,10 +34,16 @@ export function startDiscordBot() {
 	client.login(process.env.discordBotToken);
 
 	client.on(Events.MessageCreate, (message) => {
-		console.log(`discord message: ${message.content}`);
-
 		if (message.author.bot) {
 			return;
+		}
+
+		if (message.channel.type === ChannelType.GuildText && message.guild) {
+			if (message.channel.name.includes("trade") || message.channel.name.includes("trading")) {
+				console.log(`ingesting trading message in channel ${message.channel.name} in server ${message.guild.name}`);
+				ingestTradingMessage(message);
+				return;
+			}
 		}
 
 		if (!(
