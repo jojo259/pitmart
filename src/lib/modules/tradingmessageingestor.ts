@@ -1,16 +1,15 @@
-import { Message } from "discord.js";
 import type { Listing, Item, Enchant } from "../../lib/types.ts";
 import { Currency } from "../../lib/types.ts";
 import { resolveEnchantAlias } from "./enchantaliasresolver.ts";
 import { collections } from "../../lib/modules/database.ts";
 
-export function ingestTradingMessage(message: Message) {
+export function ingestTradingMessage(messageContent: string, messageAuthorId: string) {
 
 	// trash parser incoming
 
 	let sellingFlag = false;
 
-	let messageLines = message.content.split("\n");
+	let messageLines = messageContent.split("\n");
 
 	for (let line of messageLines) {
 		console.log(`at line: ${line}`);
@@ -18,7 +17,7 @@ export function ingestTradingMessage(message: Message) {
 		let currentParam = "";
 
 		let listing = {
-			discordId: message.author.id,
+			discordId: messageAuthorId,
 			owner: "",
 			pricePer: 999999999,
 			currency: Currency.Gold,

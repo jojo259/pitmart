@@ -41,7 +41,7 @@ export function startDiscordBot() {
 		if (message.channel.type === ChannelType.GuildText && message.guild) {
 			if (message.channel.name.includes("trade") || message.channel.name.includes("trading")) {
 				console.log(`ingesting trading message in channel ${message.channel.name} in server ${message.guild.name}`);
-				ingestTradingMessage(message);
+				ingestTradingMessage(message.content, message.author.id);
 				return;
 			}
 		}
