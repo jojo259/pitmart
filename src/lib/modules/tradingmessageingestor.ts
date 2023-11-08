@@ -2,6 +2,7 @@ import type { Listing, Item, Enchant } from "../../lib/types.ts";
 import { Currency } from "../../lib/types.ts";
 import { resolveEnchantAlias } from "./enchantaliasresolver.ts";
 import { collections } from "../../lib/modules/database.ts";
+import { sendDiscordMessage } from "../../lib/modules/discordmessagesender.ts";
 
 export function ingestTradingMessage(messageContent: string, messageAuthorId: string) {
 
@@ -93,6 +94,7 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 			console.log(JSON.stringify(listing, null, 4));
 			if (collections.listings) {
 				collections.listings.insertOne(listing);
+				sendDiscordMessage("log-newlistings", "new listing from discord:\n```json\n" + JSON.stringify(listing, null, 4) + "```");
 			}
 		}
 	}

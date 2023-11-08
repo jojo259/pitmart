@@ -4,6 +4,7 @@ import type { Player, Item, Listing } from "$lib/types";
 import { Currency } from "$lib/types";
 import * as mongoDb from "mongodb";
 import { getSavedUuid, apiGetPlayer } from "$lib/serverutil";
+import { sendDiscordMessage } from "$lib/modules/discordmessagesender";
 
 export async function POST({request, locals}) {
 	if (!collections.listings) {
@@ -73,6 +74,8 @@ export async function POST({request, locals}) {
 	console.log("inserting listing");
 
 	await collections.listings.insertOne(listing);
+
+	sendDiscordMessage("log-newlistings", "new listing from web:\n```json\n" + JSON.stringify(listing, null, 4) + "```");
 
 	return json({success: true, message: "Successfully created listing"});
 }
