@@ -8,7 +8,7 @@
 
 <Window title={listing.message}>
 	<MinecraftItemCard item={listing.item} show={true} useAbsolutePosition={false} />
-	Price: {listing.pricePer} {listing.currency} {listing.verified ? "VERIFIED" : "unverified"}
+	Price: {listing.pricePer} {listing.currency} {listing.ownershipVerified ? "VERIFIED" : "unverified"}
 </Window>
 
 <style>

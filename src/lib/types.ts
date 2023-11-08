@@ -77,7 +77,8 @@ export interface Listing {
 	pricePer: number;
 	currency: Currency;
 	message: string;
-	verified: boolean;
+	buying: boolean;
+	ownershipVerified: boolean;
 	item: Item;
 }
 

@@ -62,7 +62,8 @@ export async function POST({request, locals}) {
 		pricePer: listingPrice,
 		currency: formFields.currency,
 		message: formFields.message,
-		verified: listingVerified,
+		buying: false,
+		ownershipVerified: listingVerified,
 		item: body.listingItem,
 	};
 

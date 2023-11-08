@@ -9,6 +9,7 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 	// trash parser incoming
 
 	let sellingFlag = false;
+	let buyingFlag = false;
 
 	let messageLines = messageContent.split("\n");
 
@@ -17,13 +18,14 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 
 		let currentParam = "";
 
-		let listing = {
+		let listing: Listing = {
 			discordId: messageAuthorId,
 			owner: "",
 			pricePer: 999999999,
 			currency: Currency.Gold,
 			message: line,
-			verified: false,
+			buying: buyingFlag ? true : false,
+			ownershipVerified: false,
 			item: {
 				id: 1,
 				dataVal: null,
@@ -36,8 +38,8 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 				maxLives: null,
 				color: null,
 				enchants: null,
-			} as Item,
-		} as Listing;
+			},
+		};
 
 		for (let word of line.split(/\s+/)) {
 			word = word.toLowerCase();
@@ -45,9 +47,13 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 			if (currentParam == "") {
 				if (word.startsWith("sell")) {
 					sellingFlag = true;
+					buyingFlag = false;
+					listing.buying = false;
 				}
 				else if (word.startsWith("buy")) {
 					sellingFlag = false;
+					buyingFlag = true;
+					listing.buying = true;
 				}
 				else if (word.endsWith("x") && word != "phoenix") {
 					listing.item.count = parseInt(word.split("x")[0]);
@@ -89,7 +95,7 @@ export function ingestTradingMessage(messageContent: string, messageAuthorId: st
 			}
 		}
 
-		if (sellingFlag) {
+		if (sellingFlag || buyingFlag) {
 			console.log("listing:");
 			console.log(JSON.stringify(listing, null, 4));
 			if (collections.listings) {
