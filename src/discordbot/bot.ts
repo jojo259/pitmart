@@ -75,6 +75,37 @@ export function startDiscordBot() {
 	});
 }
 
+export async function sendMessage(channelName: string, message: string) {
+	if (!client) {
+		console.log("discord message not sent due to client not running");
+		return;
+	}
+
+	let pitMartGuild = await client.guilds.fetch("1115317873972351036");
+
+	if (!pitMartGuild) {
+		return;
+	}
+
+	let pitMartChannels = await pitMartGuild.channels.fetch();
+
+	if (!pitMartChannels) {
+		return;
+	}
+
+	let channel = pitMartChannels.find(c => c !== null && c.name === channelName && c.type == ChannelType.GuildText);
+
+	if (!channel) {
+		return;
+	}
+
+	if (channel.type != ChannelType.GuildText) {
+		return;
+	}
+
+	await channel.send(message);
+}
+
 if (process.argv.includes("--forcediscord")) { // hacky af
 	startDiscordBot(); // needed for when the discord bot is ran independently
 }
