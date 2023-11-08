@@ -103,7 +103,7 @@ export async function sendMessage(channelName: string, message: string) {
 		return;
 	}
 
-	await channel.send(message);
+	await channel.send({content: message, allowedMentions: {parse: []}});
 }
 
 if (process.argv.includes("--forcediscord")) { // hacky af
